@@ -65,12 +65,17 @@
 % [theorem] -- означает, что нумерация будет сплошная по счетчику от окружения theorem
 
 % Стиль для теорем. Заголовок жирным, текст курсивом.
+\theoremstyle{plain1}
+\newtheorem{theorem1}{Теорема}
+\newtheorem{lemma}[theorem1]{Лемма}
+\theoremstyle{plain2}
+\newtheorem{theorem2}{Теорема}
 \theoremstyle{plain}
 \newtheorem{theorem}{Теорема}
-\newtheorem{lemma}[theorem]{Лемма}
-\newtheorem{proposition}[theorem]{Предложение}
-\newtheorem{corollary}[theorem]{Следствие}
-
+\theoremstyle{plain3}
+\newtheorem{theorem3}{Теорема}
+\newtheorem{proposition}[theorem1]{Предложение}
+\newtheorem{corollary}[theorem1]{Следствие}
 \newtheorem*{theorem*}{Теорема}
 \newtheorem*{lemma*}{Лемма}
 \newtheorem*{proposition*}{Предложение}
@@ -78,17 +83,17 @@
 
 % Стиль для определений. Заголовок жирным, текст обычным.
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Определение}
-\newtheorem{example}[theorem]{Пример}
-
+\newtheorem{definition}[theorem2]{Определение}
+\newtheorem{example}[theorem3]{Пример}
 \newtheorem*{definition*}{Определение}
 \newtheorem*{example*}{Пример}
 
 % Стиль для замечаний. Заголовок курсивом, текст обычным.
 \theoremstyle{remark}
-\newtheorem{remark}[theorem]{Замечание}
+\newtheorem{remark}[theorem1]{Замечание}
 
 \newtheorem*{remark*}{Замечание}
+
 
 %----------------------------------------------------------------------
 % Theorem scope end
@@ -153,9 +158,7 @@
 \end{definition}
 
 \begin{definition} Многочлен называется \emph{квазилинейным}, если
-его сепаранта принадлежит полю $K$. Равносильные определения:
-факторалгебра $K\{y\}/[f]$ конечно порождена $\Leftrightarrow$ в
-идеале $[f]$ имеется конечный лексикографический стандартный базис~\cite[теорема 2]{Ferro Theorem 2}.
+его сепаранта принадлежит полю $K$.
 \end{definition}
 
 
@@ -174,6 +177,9 @@
 многочлен осуществляется по правилу $\forall j\ge 0 \, y_j:=t_j$).
 \end{definition}
 
+
+
+
 \begin{definition}
 Пусть $f_1,\ldots,f_n\in K\{y\}$ --- некоторый
 набор дифференциальных многочленов. Тогда \emph{дифференциальным
@@ -189,7 +195,9 @@
 \begin{definition} \emph{Сингулярным корнем} многочлена $f$
 называется дифференциальное решение системы $f=S_f=0$.
 \end{definition}
-
+\begin{example*}
+Рассмотрим многочлен $f=y_0-\frac{y^2_1}{4}\in\mathbb{C}\{y\}$. Если рассматривать решения в поле частных кольца $\mathbb{C}[x]$ с естественным дифференцированием $(x^n)'=nx^{n-1}$, то многочлен $g=x^2$ очевидным образом будет являться  дифференциальным решением уравнения $f=0$, так как $x^2-((x^2)')^2/4=0$. Ещё одним дифференциальным решением будет $h=0$. Рассмотрим сепаранту нашего многочлена $S_f=-\frac{y_1}{2}$, тогда сингулярным корнем будет только второе решение $h=0$. Формальным решением уравнения $f=0$ над полем $\mathbb{C}$, например, будет $(2,2\sqrt{2},2,0,0,\ldots,0,\ldots)\in \mathbb{C}$. Для доказательство этого достаточно заметить, что начиная с $i=3$ каждый моном  многочлена $f^{(i)}$ будет зависеть от переменной, которая старше $y_2$, а следовательно при подстановке нашего решения занулится. Для первых трёх уравнений $f=f^{(1)}=f^{(2)}=0$ проверяется вручную.
+\end{example*}
 \begin{definition} Дифференциальное поле $\mathbb{F}$ называется
 \emph{дифференциально замкнутым}, если для любой системы дифференциальных алгебраических
 уравнений, которая имеет решение в некотором расширении поля $\mathbb{F}$,
@@ -218,7 +226,7 @@ $$
 \mathbf{I}(Y)=\{f \in R \mid f(Y)=0\}.
 $$
 
-\begin{theorem}\label{theorem:th 0 for dif}
+\begin{theorem}[\bf Дифференциальная теорема Гильберта о нулях]\label{theorem:th 0 for dif}
 Пусть $\mathbb{F}$ дифференциально замкнуто. Тогда для любого собственного дифференциального идеала $J$ в
 $\mathbb{F}\{x_1,\ldots,x_n\}$ множество $\mathbf{V}(J)$ не пусто. \cite[Chapter~IV,
 Section~2, Theorem~1]{Kolchin 2}
@@ -229,7 +237,7 @@ Section~2, Theorem~1]{Kolchin 2}
 меньшей, чем $\kappa$. Пусть $R=\mathbb{F}[X]$ и $A=\mathbb{F}^X$. Тогда многочлены из
 $R$ можно рассматривать как функции из $A$ в $\mathbb{F}$. Так же как и для
 дифференциальных идеалов, можно определить алгебраическое многообразие $$\mathbf{V}(E)=\{a\in A\,
-\mid f(a)=0~\forall f\in E\}$$. Для произвольного подмножества $Y$
+\mid f(a)=0~\forall f\in E\}.$$ Для произвольного подмножества $Y$
 в $A$ положим
 $$
  \mathbf{I}(Y)=\{f \in R\, \mid f(Y)=0\}.
@@ -239,7 +247,7 @@ $$
 В указанных выше условиях следующие три пункта эквивалентны:
 
 \begin{enumerate}
-\item Поле $\mathbb{F}$ алгебраически замкнуто и $|\mathbb{F}|\geqslant\kappa$.
+\item Поле $\mathbb{F}$ алгебраически замкнуто и $|\mathbb{F}|>\kappa$.
 
 \item Для любого собственного идеала $J$ в $\mathbb{F}[X]$ множество
 $\mathbf{V}(J)$ непусто.
@@ -247,7 +255,7 @@ $\mathbf{V}(J)$ непусто.
 \item Для любого идеала $J$ в $\mathbb{F}[X]$ имеет место равенство
 $\sqrt{(J)}=\mathbf{I}(\mathbf{V}(X))$, где $\sqrt{J}$~--- радикал~$J$.
 \end{enumerate}
-
+\cite[Section~1, Theorem]{Lang}
 \end{theorem}
 
 В дальнейшем в роли $X$ у нас будет выступать счётный набор
@@ -364,7 +372,7 @@ y_{r_i}}\right)^{(r_i+k -l)}}{m_{r_i}} = \sum_{j=0}^l C_n^{j+k-l}
 $$
 \end{proof}
 
-\begin{corollary}\label{corollary:deriv_equal}
+\begin{corollary*}\label{corollary:deriv_equal}
 Пусть $f$~--- дифференциальный многочлен, $\ord f =l$, и $n>2k$.
 Тогда
 \begin{enumerate}
@@ -376,7 +384,7 @@ f^{(n)}=\sum\limits_{i=0}^{k} A_{f^{(n)},n+l -i}y_{n+l -i} + Q,
 $$
 где $Q$ зависит от переменных, порядок которых меньше $n+l-k$.
 \end{enumerate}
-\end{corollary}
+\end{corollary*}
 \begin{proof} Первый пункт непосредственно следует из леммы~\ref{lemma:A_fn}. Докажем индукцией по $m\le k$, что
 $$
 f^{(n)}=\sum\limits_{i=0}^{m} A_{f^{(n)},n+l -i}y_{n+l -i} + Q,
@@ -463,7 +471,7 @@ $$
 противоречие с индукционным предположением.
 \end{proof}
 
-\begin{remark}\label{remark:o vlojenii}
+\begin{remark*}\label{remark:o vlojenii}
 
 Пусть $K$~--- алгебраически замкнутое поле континуальной
 мощности и пусть дан многочлен $ g(y_0,\ldots,y_k,x)\in
@@ -509,7 +517,7 @@ $$
 многочлены были с рациональными коэффициентами, то все $t_j(n)$
 тоже будут с рациональными коэффициентами, а следовательно,
 все целые корни такого многочлена можно найти конечным перебором.
-\end{remark}
+\end{remark*}
 
 
 \begin{lemma} \label{lemma:o proekcii}
@@ -601,13 +609,13 @@ $$
 \end{proof}
 
 
-\begin{remark}\label{remark:o_prinadleznosti_reshenia}
+\begin{remark*}\label{remark:o_prinadleznosti_reshenia}
 Предположим, что $[f,S_f]=1$, а $[f]+(h)\neq 1$. Тогда $\mathbf{V}_{f}$ не пусто. Рассмотрим точку $b\in\mathbf{V}_{f}$. Докажем, что она принадлежит хотя бы одному из многообразий $\mathbf{V}_{k,i}^n$ при фиксированном $n$. Мы знаем, что 
 $$
 \varnothing=\mathbf{V}(f,\ldots,f^{(p)},S_f,\ldots,S_f^{(p)})\supseteq \mathbf{V}(h,f,\ldots,f^{(p)})\bigcap\mathbf{V}(S_f,\ldots,S_f^{(p)})=\varnothing.
 $$
  А так как $b\in \mathbf{V}(h,f,\ldots,f^{(p)})$, то $b$ не может входить в $\mathbf{V}(S_f,\ldots,S_f^{(p)})$. Следовательно существует $i\leqslant p$, что $b \not\in \mathbf{V}(G_i)$, так как  в порождающие элементы идеалов $G_j$ входят соответственно все производные $S_f$ вплоть до $(S_f)^{(p)}$. Остаётся взять наименьшее такое $i$ и получим, что $b\in \mathbf{U}_{i}^n$, а вместе с этим $b$ лежит и в какой неприводимой компоненте $\mathbf{U}_{i}^n$, не принадлежащей $\mathbf{V}(G_{i})$.
-\end{remark}
+\end{remark*}
 
 \begin{definition}
 Пусть $f\in K\{y\}$, $[f,S_f]=1$.  Глубиной решения $b\in \mathbf{V}_f$  будем называть число $k$, такое что $b\in \mathbf{U}_k^n$, но $b\not\in \mathbf{U}_{k+1}^n$, при $n \geqslant\max\{ 2p+1,\ord{h},\ord{f},w\}$ .
@@ -630,8 +638,8 @@ $$
 
 \end{proof}
 
-\begin{remark}\label{remark:o_sushestvovanii_gllubiny} Тем самым из~\ref{lemma:o_nasledovanii} и~\ref{remark:o_prinadleznosti_reshenia} следует, что глубина решения не зависит от $n$ и корректно определена для любого $b\in \mathbf{V}_f$.
-\end{remark}
+\begin{remark*}\label{remark:o_sushestvovanii_gllubiny} Тем самым из~\ref{lemma:o_nasledovanii} и~\ref{remark:o_prinadleznosti_reshenia} следует, что глубина решения не зависит от $n$ и корректно определена для любого $b\in \mathbf{V}_f$.
+\end{remark*}
 
 \begin{definition}
 Пусть имеется счётный набор многочленов
@@ -720,7 +728,7 @@ $$
 $$
 \end{definition}
 
-\begin{remark}\label{remark:o_konechnosti_psi}
+\begin{remark*}\label{remark:o_konechnosti_psi}
 Отметим, что $\psi(g_{d,n},\mathbf{V}_{d,i}^{n_0})$ не может равняться $+\infty$  для не пустого $\mathbf{V}_{d,i}^{n_0}$. Действительно, если это не так, то существует бесконечно много $n$, таких, что $\mathbf{V}_{d,i}^{n_0}\subseteq \mathbf{V}(g_{d,n})$. Так как $\mathbf{V}_{d,i}^{n_0} \not\subseteq \mathbf{V}(G_d)$, то существует точка $b\in \mathbf{V}_{d,i}^{n_0}$ такая, что хотя бы один из многочленов $\left\{\left(\frac{\partial f}{\partial y_0}\right)^{(d-l)},\ldots, \left(\frac{\partial f}{\partial y_l}\right)^{(d)} \right\}$ не равен 0 в точке $b$.
 
 Заметим, что $C_n^k=\frac{(n-1)\cdot\ldots(n-k+1)}{k!}$, следовательно при фиксированном $k$ биномиальный коэффициент $C_n^k$ можно рассматривать как многочлен от $n$.
@@ -730,7 +738,7 @@ $$
 g_{d,n}(b)=\sum\limits_{j=0}^{l}C_n^{j+d - l }\left(\frac{\partial f}{\partial y_j}\right)^{(j+d - l)}(b)\in K[n].
 $$
 Этот многочлен не тождественный 0, так как существует коэффициент $\left(\frac{\partial f}{\partial y_j}\right)^{(j+d - l)}(b)$, не равный 0, а $C_n^{j+d - l }$~---линейно независимые многочлены от $n$, степени не больше $d$. Однако, если существует бесконечно много $n$, что $\mathbf{V}_{d,i}^n\subseteq \mathbf{V}(g_{d,n})$, следовательно при каждом таком $n_0$ многочлен $g_{d,n_0}(b)$ равен 0. Т.е. $g_{d,n}(b)$ имеет бесконечно много корней, что противоречит,что $g_{d,n}(b)$ не равен тождественно 0.
-\end{remark}
+\end{remark*}
 
 \begin{definition}
 Цепочкой будем называть последовательность многообразий, каждое  из которых, кроме первого, является наследником предыдущего.
@@ -745,7 +753,7 @@ $$
 \end{proof}
 
 
-\begin{remark}\label{remark:o_syshestvovvanii reshenia c zadannoi glubinoi}
+\begin{remark*}\label{remark:o_syshestvovvanii reshenia c zadannoi glubinoi}
 Итак, мы знаем, что если $\mathbf{V}_f\neq\emptyset$, то для любого $b\in\mathbf{V}_f$ определено понятие глубины. Покажем, что мы можем определить : существует ли решение системы (1) с заданной глубиной $k$.
 
 Зададимся числом $n_0\geqslant\max\{ 2p+1,\ord{h},\ord{f}\}$. Рассмотрим все $\mathbf{V}_{k,i}^{n_0}$ из $V_k^{n_0}$  и для каждого вычислим $a_i=\psi(\mathbf{V}_{k,i}^{n_0},g_{k,n})$. Мы знаем, что если $a_j\leqslant n_0$, то по теореме~\ref{theorem:general th1} существуют точки из $\mathbf{V}_{k,j}^{n_0}$, которые продолжаются до формального решения системы (1). Предположим, все $a_j>n_0$, тогда найдём максимальное из них $n_1$ (по замечанию~\ref{remark:o_konechnosti_psi} каждое $a_i$ конечно) и повторим процедуру для многообразий $\mathbf{V}_{k,i}^{n_1}$. И так далее. Таким образом мы построим последовательность чисел $n_0,n_1,n_2,\ldots$.
@@ -769,7 +777,7 @@ $$
 Мы знаем, что если выполнено 2, то существуют точки из $\mathbf{V}_{k,m}^{n_j}$, которые продолжаются до формального решения системы (1). То, что нам и надо. Если выполнено первое, то из~\ref{remark:o_sushestvovanii_gllubiny} следует, что нет решений системы (1)  с глубиной $k$. Так как если бы они были, то для любого $n$ на нашлось бы непустое $\mathbf{V}_{k,m}^{n}$ содержащее данное решение.
 
 Осталось заметить, что так как глубина решения не может превосходить $p$, то для проверки $[f]+(S_f)=1$ нам нужно проверить существование решений всех глубин не больших $p$. Если не нашлось ни для какой глубины решения, то $[f]+(S_f)=1$, иначе $[f]+(S_f)\neq1$.
-\end{remark}
+\end{remark*}
 
 {\bf Вход:} $K\{y\}$~--- кольцо дифференциальных многочленов, где $K$ является алгеброй Ритта, континуальной мощности, $f,h\in K{y}$ с условием $[f,g]=1$.
 
@@ -915,7 +923,7 @@ The Annals of Mathematics, Second Series, Volume 42, Issue 3 (Jul., 1941), 740-7
 \bibitem{Trushin}
 Д.В.Трушин.
 \emph{Идеал сепарант в кольце дифференциальных многочленов.}
-Фундаментальная и прикладная математика, том 13, вып 1, стр.215-227(2007).
+Фундаментальная и прикладная математика, том 13, вып 1, стр. 215-227(2007).
 \bibitem{Hartshorn}
 Р.Хартсхорн.
 \emph{Алгебраическая геометрия}
@@ -930,6 +938,9 @@ Math. Comput. Modelling, Pergamon Press, vol. 25, 1-10, 1997.
 \bibitem{Kolchin 2}
 E.R. Kolchin ,
 \emph{ Differential algebra and algebraic groups}, Academic Press, New York and London, 1973.
+\bibitem{Lang}
+S. Lang,
+\emph{ Hilbert's Nullstellensatz in Infinite-Dimensional Space}, American Mathematical Society, vol. 3, No. 3 (Jun., 1952), стр. 407-410
 \end{thebibliography}
 \end{document}
 \begin{definition}
