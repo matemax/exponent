@@ -296,13 +296,53 @@ $$
 Следует непосредственно из правила Лейбница.
 \end{proof}
 
+
+\begin{lemma}\label{lemma:commutative derivatives}
+Пусть $f$~--- дифференциальный многочлен, тогда для любого $s\in\mathbb{N}$ верно следующее: 
+$$
+\frac{\partial(f^{(1)})}{\partial y_s}=\left(\frac{\partial f}{\partial y_s}\right)^{(1)}+\frac{\partial f}{\partial y_{s-1}},
+$$
+где $\frac{\partial(f^{(1)})}{\partial y_s}$~--- обычная частная производная.
+\end{lemma}
+\begin{proof}
+Пусть $l=\ord f$, тогда воспользуемся известной формулой $(f)^{(1)}=\sum\limits_{i=0}^l\frac{\partial(f)}{\partial y_i}y_{i+1}$ (следует из правила Лейбница). Тогда 
+$$
+\frac{\partial(f^{(1)})}{\partial y_s}=\frac{\partial(\sum\limits_{i=0}^l\frac{\partial f}{\partial y_i}y_{i+1})}{\partial y_s}=\sum\limits_{i=0}^l\frac{\partial(\frac{\partial f}{\partial y_i})}{\partial y_s}y_{i+1}+\sum\limits_{i=0}^l\frac{\partial y_{i+1}}{\partial y_s}\frac{\partial f}{\partial y_i}.
+$$
+Во второй сумме только слагаемое 
+$\frac{\partial(y_{s})}{\partial y_s}\frac{\partial(f)}{\partial y_{s-1}}=\frac{\partial f}{\partial y_{s-1}}$ 
+не равно 0, т.е. 
+$$
+\frac{\partial(f^{(1)})}{\partial y_s}=\sum\limits_{i=0}^l\frac{\partial(\frac{\partial f}{\partial y_i})}{\partial y_s}y_{i+1}+\frac{\partial f}{\partial y_{s-1}}=\sum\limits_{i=0}^l\frac{\partial(\frac{\partial f}{\partial y_s})}{\partial y_i}y_{i+1}+\frac{\partial f}{\partial y_{s-1}}=\left(\frac{\partial f}{\partial y_s}\right)^{(1)}+\frac{\partial f}{\partial y_{s-1}}.
+$$
+\end{proof}
+
+\begin{lemma}\label{lemma:f^(n)}
+Пусть $f$~--- дифференциальный многочлен, тогда для любых $n$ и $s\in\mathbb{N}$ верно:
+$$\frac{\partial(f^{(n)})}{\partial y_s} = \sum\limits_{i=0}^n  C_n^i  \left(\frac{\partial f}{\partial y_{i+s-n}}\right)^{(i)}  $$
+\end{lemma}
+\begin{proof}
+Докажем это утверждение индукцией по $n$.  База ($n=1$) верна по лемме~\ref{lemma:commutative derivatives}. Предположим, что для $n=k$ утверждение верно, докажем, что утверждение верно при $n=k+1$. Пусть $f^{(1)}=g$, тогда
+$\frac{\partial(f^{(k+1)})}{\partial y_s} = \frac{\partial(g^{(k)})}{\partial y_s}$, 
+применим предположение индукции к многочлену $g^{(k)}$, имеем 
+$$
+\frac{\partial(f^{(k+1)})}{\partial y_s} =  \sum\limits_{i=0}^k  C_k^i  \left(\frac{\partial g}{\partial y_{i+s-k}}\right)^{(i)}=\sum\limits_{i=0}^k  C_k^i  \left(\frac{\partial(f^{(1)})}{\partial y_{i+s-k}}\right)^{(i)}. 
+$$
+Воспользуемся линейностью дифференцировния и леммой~\ref{lemma:commutative derivatives} в каждом слагаемом в последней сумме, получим  
+$$
+\left(\frac{\partial(f^{(1)})}{\partial y_{i+s-k}}\right)^{(i)}= \left(\frac{\partial f}{\partial y_{i+s-k-1}}+\left(\frac{\partial f}{\partial y_{i+s-k}}\right)^{(1)}\right)^{(i)}=\left(\frac{\partial f}{\partial y_{i+s-k-1}}\right)^{(i)}+\left(\frac{\partial f}{\partial y_{i+s-k}}\right)^{(i+1)}.
+$$ 
+Следовательно
+\begin{gather*}
+\frac{\partial(f^{(k+1)})}{\partial y_s}=\sum\limits_{i=0}^k  C_k^i\left(\frac{\partial f}{\partial y_{(i+s-k)-1}}\right)^{(i)}+\sum\limits_{i=0}^k  C_k^i\left(\frac{\partial f}{\partial y_{i+s-k}}\right)^{(i+1)}=\sum\limits_{i=0}^k  C_k^i\left(\frac{\partial f}{\partial y_{(i+s-k)-1}}\right)^{(i)}+\sum\limits_{i=1}^{k+1}  C_k^{i-1}\left(\frac{\partial f}{\partial y_{i+s-k-1}}\right)^{(i)}=\\\sum\limits_{i=1}^{k+1} C_{k+1}^{i}\left(\frac{\partial f}{\partial y_{i+s-(k+1)}}\right)^{(i)}
+\end{gather*}
+Переход доказан.
+\end{proof}
 Рассмотрим дифференциальный многочлен $g$ порядка $l$ и произвольное
 целое число $k\ge0$. Представим многочлен в виде $g=g_0+A_{g,k}y_k$, где
 $g_0$ не зависит от $y_k$, а многочлен $y_kA_{g,k}$ получается из
 многочлена $g$ нахождением всех мономов, зависящих от $y_k$, и
 вынесением этой переменной за скобки.
-
-
 \begin{lemma}\label{lemma:A_fn}
 Пусть $f$~--- дифференциальный многочлен и $\ord f = l$.
 Тогда для любых $k$ и $n$ с условием $n>2k$ верно следующее
@@ -315,7 +355,6 @@ $$
 $k$.
 \end{lemma}
 
-В частности, при $k=0$ и $n > 1$ получаем известную формулу $A_{f^{(n)},n+l} = S_f = \frac{\partial f}{\partial y_l}$.
 
 \begin{proof}
 Заметим, что в силу линейности дифференцирования мы можем считать
@@ -341,37 +380,19 @@ $$
 $$
 2(n+l-k)\leqslant 2r_d + \sum_{i=1}^d s_d = 2l +n.
 $$
-Значит, $n \leqslant 2k$, что противоречит выбору $n>2k$.
-
-
-Теперь выделим слагаемое, зависящее от $y_{n+l-k}$. Множитель
-$y_{n+l-k}$ соответствует одному из $y_{r_i+s_i}$. Рассмотрим для
-простоты случай, когда этот множитель соответствует $y_{r_1+s_1}$,
-то есть, когда $r_1+s_1 = n+l-k$. Получаем, что
-\begin{gather*}
-\sum\limits_{\stackrel{s_1 = n-k+l-r_1,
-s_i\geqslant0,}{s_1+\ldots+s_d=n}}\frac{n!}{s_1!\ldots s_d!}\prod\limits_{i=1}^dy_{r_i+s_i}=\\
-=y_{n+l-k}\sum\limits_{\stackrel{
-s_i\geqslant0,}{s_2+\ldots+s_d=k-l+r_1}}\frac{n!}{(n+l-k-r_1)!s_2!\ldots s_d!}\prod\limits_{i=2}^dy_{r_i+s_i}=\\
-=y_{n+l-k}\sum\limits_{\stackrel{
-s_i\geqslant0,}{s_2+\ldots+s_d=k-l+r_1}}\frac{n!}{(n+l-k-r_1)!(k-l+r_1)!}\frac{(k-l+r_1)!}{s_2!\ldots s_d!}\prod\limits_{i=2}^dy_{r_i+s_i}=\\
-=y_{n+l-k}C_n^{k-l+r_1} (y_{r_2}\ldots y_{r_d})^{(k-l+r_1)} =
-y_{n+l-k}C_n^{k-l+r_1}(y_{r_1}^{m_{r_1}-1}\ldots
-y_{l}^{m_l})^{(k-l+r_1)}=\\
-=y_{n+l-k}C_n^{k-l+r_1}\frac{\left(\frac{\partial f}{\partial
-y_{r_1}}\right)^{(k-l+r_1)}}{m_{r_1}}.
-\end{gather*}
-
-Теперь просуммируем все аналогичные слагаемые, в которых встречается
-$y_{n+l-k}$. Получим
+Значит, $n \leqslant 2k$, что противоречит выбору $n>2k$. Мы получили, что многочлен $f^{(n)}$ линеен по всем переменным $y_{n+l-k},n>2k $. Пусть $f^{(n)}=f^{(n)}_0+A_{f^{(n)},n+l-k}y_{n+l-k}$. Тогда, в силу линейности $f^{(n)}$ по $y_{n+l-k}$, мы получаем, что $$\
+\frac{\partial (f^{(n)})}{\partial y_{n+l-k}}=\frac{\partial (f^{(n)}_0+A_{f^{(n)},n+l-k}y_{n+l-k})}{\partial y_{n+l-k}}=A_{f^{(n)},n+l-k}.
 $$
-A_{f^{(n)},n+l-k} = \sum_{i=1}^{d}
-C_n^{k-l+r_i}\frac{\left(\frac{\partial f}{\partial
-y_{r_i}}\right)^{(k-l+r_i)}}{m_{r_i}}= \sum_{j=0}^l \: \sum_{i: \, r_i = j}
-C_n^{k-l+r_i}\frac{\left(\frac{\partial f}{\partial
-y_{r_i}}\right)^{(k-l+r_i)}}{m_{r_i}} = \sum_{j=0}^l C_n^{k-l+j}
-\left(\frac{\partial f}{\partial y_{j}}\right)^{(k-l+j)}.
+
+С другой стороны, по лемме~\ref{lemma:f^(n)} знаем, что $\frac{\partial (f^{(n)})}{\partial y_{n+l-k}}= \sum\limits_{i=0}^n  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)} $. Заметим, что т.к. $\ord f^{(n)} = l$,  то для всех $i>k$ выполнено $\frac{\partial f}{\partial y_{i+l-k}}=0$. Отсюда следует, что 
 $$
+A_{f^{(n)},n+l-k}=\sum\limits_{i=0}^n  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)}=\sum\limits_{i=0}^k  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)}=\sum\limits_{j=l-k}^l  C_n^{k-l+j}  \left(\frac{\partial f}{\partial y_{j}}\right)^{(k-l+j)}=\sum\limits_{j=0}^{l}C_n^{k - l + j
+}\left(\frac{\partial f}{\partial y_j}\right)^{(k - l + j)}.
+$$
+Последнее равенство верно, так как если $l>k$, то из $0 \leqslant j<l-k\Rightarrow C_n^{k-l+j}=0$, а если $l<k$, то  $k-l\leqslant j<0\Rightarrow\frac{\partial f}{\partial y_{j}}=0$. 
+
+
+
 \end{proof}
 
 \begin{corollary}\label{corollary:deriv_equal}
@@ -431,6 +452,11 @@ f^{(n)}=\sum\limits_{i=0}^{m+1} A_{f^{(n)},n+l-i}y_{n+l-i} + Q_{m+1}.
 $$
 Переход доказан.
 \end{proof}
+\begin{definition}
+Пусть $f\in\mathbf{K}\{y\},\ord f=l$  и $n,k\in\mathbb{N}$ такие, что $n>2k$. \emph{Обобщёнными сепарантами} многочлена $f$ будем назвать многочлены $S_{f,n,k}=\sum\limits_{j=0}^{l}C_n^{k - l + j
+}\left(\frac{\partial f}{\partial y_j}\right)^{(k - l + j)}$. В частности при $k=0$ обобщённая сепаранта совпадает с обычной $S_{f,n,0}=S_f = \frac{\partial f}{\partial y_l}$. 
+\end{definition}
+Из вышедоказанного следует, что $f^{(n)}= \sum\limits_{i=0}^{m} S_{f,n,i} \, y_{n+l -i}+ Q$ ,где $2k<n\in\mathbb{N}\,,\ord Q < n+l-k$.
 
 Следующий результат, по видимому, является известным, но мы не нашли
 подходящей ссылки, и потому приводим его доказательство.
@@ -620,7 +646,7 @@ $$
 Рассмотрим многочлен $ f^{(m)}$, $n\leqslant m\leqslant n+k$. По следствию~\ref{corollary:deriv_equal} и определению $g_{k,n}$ верно, что
 
 $$
-f^{(m)}= \sum\limits_{i=0}^{p} A_{f^{(m)}\,m+l -i}y_{m+l -i} + f_{m,n}=\sum\limits_{i=0}^{m-n} g_{i,m}y_{m+l -i} + f_{m,n},
+f^{(m)}= \sum\limits_{i=0}^{p} S_{f,m,i}y_{m+l -i} + f_{m,n}=\sum\limits_{i=0}^{m-n} g_{i,m}y_{m+l -i} + f_{m,n},
 $$
 
 где многочлен $f_{m,n}$ не зависит от переменных старше $y_{n+l-1}$. Заметим, что $\sum\limits_{i=0}^{m-n} g_{i,m}y_{m+l -i}$ принадлежит идеалу  $(G_0,\ldots, G_{k-1})\subseteq K[y_0,\ldots,y_{k+n+l}]$,  порождающие которого зависят от переменных не старше $y_{n+l}$.
