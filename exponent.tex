@@ -605,18 +605,18 @@ $l=\max\limits_i\ord g_i$,
 $I =(g_1,\ldots,g_n) \triangleleft K[y_0,\ldots,y_l]$ и $J =(g_1,\ldots,g_n) \triangleleft K[y_0,\ldots,y_q]$, где
 $q\in \mathbb{N}\cup\{\infty\},q> l$. Пусть
 $V=\mathbf{V}(J)\subseteq K^{q+1}$,
-тогда $\Pi_l(V)=\mathbf{V}(\sqrt{I})$.
+тогда $\Pi_l(V)=\mathbf{V}(I)$.
 \end{lemma}
 
 \begin{proof}
 
 Пусть $a\in V$.
-Тогда по теореме~\ref{theorem:th 0 for alg} $g_i(a)=0$ для любого $i$ от $1$ до $n$. Следовательно, так как $\ord g_i \le l$, то $g(\Pi_l(a))$ определено корректно и равно 0. Отсюда получается, что $\Pi_l(V)\subseteq\mathbf{V} (\sqrt{I})$.
+Тогда по теореме~\ref{theorem:th 0 for alg} $g_i(a)=0$ для любого $i$ от $1$ до $n$. Следовательно, так как $\ord g_i \le l$, то $g(\Pi_l(a))$ определено корректно и равно 0. Отсюда получается, что $\Pi_l(V)\subseteq\mathbf{V} (I)$.
 
 
-Теперь  докажем обратное включение. Пусть $b\in \mathbf{V} (\sqrt{I})$  и $f\in J$. 
-Рассмотрим произвольную точку $b'=(b,0,\ldots,0,\ldots)\in K^{q}$. Если мы докажем, что $f(b')=0$, то по той же теореме~\ref{theorem:th 0 for alg}  $b'\in V$ и $\Pi_l(b')=b$. А следовательно $$ \mathbf{V}(\sqrt{I})\subseteq\Pi_l(V)\Rightarrow \mathbf{V}(\sqrt{I})=\Pi_l(V).$$
-Рассмотрим $f$  как многочлен в кольце $K[y_0\ldots,y_l][y_{l+1},\ldots,y_q]$, тогда мы можем записать, что $f=\sum\limits_{i=1}^lf_ih_i$, где $h_i$~--- мономы от переменных $y_{l+1},\ldots,y_q$, $f_i$~--- многочлены из $K[y_0\ldots,y_l]$. Тогда по лемме~\ref{lemma:extention ring} все $f_i\in\mathbf{V} (\sqrt{I}) $. Значит $f_i(b')=0$ для любого $i$ по теореме гильберта о нулях. отсюда следует, что $f(b')=0$.
+Теперь  докажем обратное включение. Пусть $b\in \mathbf{V} (I)$  и $f\in J$. 
+Рассмотрим произвольную точку $b'=(b,0,\ldots,0,\ldots)\in K^{q}$. Если мы докажем, что $f(b')=0$, то по той же теореме~\ref{theorem:th 0 for alg}  $b'\in V$ и $\Pi_l(b')=b$. А следовательно $$ \mathbf{V}(I)\subseteq\Pi_l(V)\Rightarrow \mathbf{V}(I)=\Pi_l(V).$$
+Рассмотрим $f$  как многочлен в кольце $K[y_0\ldots,y_l][y_{l+1},\ldots,y_q]$, тогда мы можем записать, что $f=\sum\limits_{i=1}^lf_ih_i$, где $h_i$~--- мономы от переменных $y_{l+1},\ldots,y_q$, $f_i$~--- многочлены из $K[y_0\ldots,y_l]$. Тогда по лемме~\ref{lemma:extention ring} все $f_i\in \sqrt{I}\subseteq K[y_0\ldots,y_l]$. Значит $f_i(b')=0$ для любого $i$ по теореме гильберта о нулях. Отсюда следует, что $f(b')=0$.
 
 \end{proof}
 
