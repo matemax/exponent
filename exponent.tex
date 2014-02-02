@@ -389,7 +389,7 @@ $$
 \frac{\partial f^{(n)}}{\partial y_{n+l-k}}=\frac{\partial (f^{(n)}_0+A_{f^{(n)},n+l-k}y_{n+l-k})}{\partial y_{n+l-k}}=A_{f^{(n)},n+l-k}.
 $$
 
-С другой стороны, по лемме~\ref{lemma:f^(n)} $\frac{\partial (f^{(n)})}{\partial y_{n+l-k}}= \sum\limits_{i=0}^n  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)} $. Заметим, что так как $\ord f^{(n)} = l$, то для всех $i>k$ выполнено $\frac{\partial f}{\partial y_{i+l-k}}=0$. Отсюда следует, что 
+С другой стороны, по лемме~\ref{lemma:f^(n)} $\frac{\partial f^{(n)}}{\partial y_{n+l-k}}= \sum\limits_{i=0}^n  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)} $. Заметим, что так как $\ord f^{(n)} = l$, то для всех $i>k$ выполнено $\frac{\partial f}{\partial y_{i+l-k}}=0$. Отсюда следует, что 
 \begin{gather*}
 A_{f^{(n)},n+l-k}=\sum\limits_{i=0}^n  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)}=\sum\limits_{i=0}^k  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)}=\\
 =\sum\limits_{j=l-k}^l  C_n^{k-l+j}  \left(\frac{\partial f}{\partial y_{j}}\right)^{(k-l+j)}=\sum\limits_{j=0}^{l}C_n^{k - l + j
@@ -623,46 +623,44 @@ $V=\mathbf{V}(J)\subseteq K^{q+1}$,
 
 \section{Алгоритм, разделяющий случаи $[f]+(S_f)=1$ и $[f]+(S_f)\neq1$}
 
-Мы знаем, что при выполнении условия $[f,S_f]=1$ наличие или отсутствие в $[f]$ квазилинейного многочлена равносильно равенству/неравенству $[f]+(S_f)=1$. Так же, при выполнении $[f]+(S_f)=1$ мы знаем, что $[f]=\{f\}$. Тогда встаёт естественный вопрос, как разделить эти два случая. Мы попробуем этот пробел устранить. Более того, мы будем решать следующую задачу: дано, что $[f,S_f]=1$, надо проверить на равенство единичному идеал $[f]+(h)$, где $h\in K\{y\}$.
+Мы знаем~\cite{Trushin}, что при выполнении условия $[f,S_f]=1$ наличие или отсутствие в $[f]$ квазилинейного многочлена равносильно равенству/неравенству $[f]+(S_f)=1$.
+Также известно~\cite{E. R. Kolchin}, что из условия $[f]+(S_f)=1$ следует радикальность идеала $[f]$.
+Возникает естественный вопрос: как алгоритмически разделить эти два случая?
+Мы дадим на него ответ. Более того, мы будем решать следующую более общую задачу: дано $[f,S_f]=1$; требуется проверить, равен ли единичному идеал $[f]+(h)$, где $h\in K\{y\}$.
 
-В дальнейшем нас будет интересовать решение следующей системы:
+В дальнейшем нас будет интересовать решение системы
 \begin{equation}h=f=\ldots=\ldots=f^{(n)}=\ldots=0. \end{equation}
 
 Введём некоторые обозначения.
 \begin{enumerate}
 
+  \item $l:=\ord (f);$
 
-  \item  $l:=\ord (f);$
+  \item Идеал $G_k := \sum\limits_{j=0}^l\left(\left(\frac{\partial f}{\partial y_j}\right)^{(k-l+j)}\right) = \left(\left(\frac{\partial f}{\partial y_0}\right)^{(k-l)},\ldots ,\left(\frac{\partial f}{\partial y_l}\right)^{(k)} \right)$.
+  \\Если $k-l+j<0$, то считаем, что $\left(\frac{\partial f}{\partial y_j}\right)^{(k-l+j)} = 0$;
 
-  \item Идеал $G_k := \sum\limits_{j=0}^l\left(\left(\frac{\partial f}{\partial y_j}\right)^{(j+k-l)}\right) = \left(\left(\frac{\partial f}{\partial y_0}\right)^{(k-l)},\ldots ,\left(\frac{\partial f}{\partial y_l}\right)^{(k)} \right)$.
-  \\Если $j+k-l<0$, то считаем, что $\left(\frac{\partial f}{\partial y_j}\right)^{(j+k-l)} = 0$;
+  \item Многочлен $g_{k,n}:=\sum\limits_{j=0}^{l}C_n^{k-l+j}\left(\frac{\partial f}{\partial y_j}\right)^{(k-l+j)}$;
 
-  \item Многочлен $g_{k,n}:=\sum\limits_{j=0}^{l}C_n^{j+k - l }\left(\frac{\partial f}{\partial y_j}\right)^{(j+k - l)}$;
-
-  \item  Выберем  такие $p,w\in \mathbb{N}$ , что $(f,\ldots,f^{(w)},S_f,\ldots,S_f^{(p)})=1\}$, они существуют в силу условия
+  \item Выберем  такие $p,w\in \mathbb{N}$, что $\left(f,\ldots,f^{(w)},S_f,\ldots,S_f^{(p)}\right)=(1)$, они существуют в силу условия
   $[f,S_f]=1$;
 
-  \item ${V}_{f,n}=\mathbf{V}(h,f,\ldots f^{(n)})\subseteq K^{\infty}$;
+  \item ${V}_{f,n}:=\mathbf{V}\left(h,f,\ldots f^{(n)}\right)\subseteq K^{\infty}$;
 
   \item
-  ${V}_{f}=\bigcap\limits_{n=0}^{\infty}\mathbf{V}_{f,n}$;
-
+  ${V}_{f}:=\bigcap\limits_{n=0}^{\infty}V_{f,n}$.
 
 %  \item Дано многообразие ${\mathbf{H}}$.  Разложение $\mathbf{H}$ на неприводимые многообразия будем обозначать: $\mathbf{\mathbf{H}}= \bigcup\limits_{j=1}^{k}\mathbf{L}_{j}(\mathbf{H})$. 
 \end{enumerate}
 
 
 
-Пусть $n \ge\max\{ 2p+1,\ord{h},l,w\}$. Рассмотрим  набор многообразий ${U}_k^n,0\le k\le p $ , заданный следующим образом:
-$$
-{U}_{0}^n={V}_{f,n},
-$$
+Пусть $n \ge\max\{ 2p+1,\ord{h},l,w\}$. Рассмотрим набор многообразий ${U}_k^n$, $0\le k\le p$, заданный следующим образом:
+\begin{gather*}
+{U}_{0}^n:={V}_{f,n},\\
+{U}_k^n:={V}_{f,n+k}\bigcap\left(\bigcap\limits_{m=0}^{k-1}\mathbf{V}\left(G_m\right)\right) \quad \text{ при } k>0.
+\end{gather*}
 
-$${U}_k^n={V}_{f,n+k}\bigcap\left(\bigcap\limits_{m=0}^{k-1}\mathbf{V}\left(G_m\right)\right)
-\quad (k>0).
-$$
-
-Каждое из ${U}^n_k$ разложим на неприводимые многообразия $W=\{{W}_{1},\ldots,{W}_{n_k}\}$. Пусть $V^n_k=\{{V}^n_{k,1},\ldots,{V}^n_{k,i_k}\}$ все элементы $W$, удовлетворяющие следующему условию: ${W}_{j}\not\subseteq\mathbf{V}(G_k)$.
+Каждое из ${U}^n_k$ разложим на неприводимые многообразия $W=\{{W}_{1},\ldots,{W}_{n_k}\}$. Пусть $V^n_k=\{{V}^n_{k,1},\ldots,{V}^n_{k,i_k}\}$~--- все элементы $W$, удовлетворяющие условию ${W}_{j}\not\subseteq\mathbf{V}(G_k)$.
 
 Пусть  $S_k^n=(h,f,\ldots,f^{(n+k)})+G_0+\ldots+ G_{k-1}\subseteq K\{y\}$. Из определения ${U}_k^n$ видно, что ${U}_k^n=\mathbf{V}(S_k^n)\subseteq K^{\infty}$. А каждому многообразию ${V}_{k,i}^n$ соответствует радикал $R_{k,i}^n$ некоторой примарной компоненты идеала $S_k^n$.
 
@@ -999,7 +997,7 @@ $(S_f)^{(1)}=2y_3$;
 \bibitem{E. R. Kolchin}
 E. R. Kolchin.
 \emph{On the Exponents of Differential Ideals.}
-The Annals of Mathematics, Second Series, Volume 42, Issue 3 (Jul., 1941), 740-777.
+The Annals of Mathematics, Second Series, Volume 42, Issue 3 (Jul., 1941), 740--777.
 
 \bibitem{AM}
 М. Атья, И. Макдональд.
@@ -1012,7 +1010,7 @@ The Annals of Mathematics, Second Series, Volume 42, Issue 3 (Jul., 1941), 740-7
 \bibitem{Trushin}
 Д. В. Трушин.
 \emph{Идеал сепарант в кольце дифференциальных многочленов.}
-Фундаментальная и прикладная математика, том 13, вып 1, стр. 215-227(2007).
+Фундаментальная и прикладная математика, том 13, вып 1, 215--227 (2007).
 \bibitem{Hartshorn}
 Р. Хартсхорн.
 \emph{Алгебраическая геометрия}
@@ -1020,16 +1018,16 @@ The Annals of Mathematics, Second Series, Volume 42, Issue 3 (Jul., 1941), 740-7
 \bibitem{Ferro Theorem 2}
 Carr\`a Ferro G.,
 \emph{Diferential Gr\"{o}bner Bases in One Variable and in the Partial Case},
-Math. Comput. Modelling, Pergamon Press, vol. 25, 1-10, 1997.
+Math. Comput. Modelling, Pergamon Press, vol. 25, 1--10, 1997.
 \bibitem{Kolchin 2}
 E. R. Kolchin ,
-\emph{ Differential algebra and algebraic groups}, Academic Press, New York and London, 1973.
+\emph{Differential algebra and algebraic groups}, Academic Press, New York and London, 1973.
 \bibitem{Lang}
 S. Lang,
-\emph{ Hilbert's Nullstellensatz in Infinite-Dimensional Space}, American Mathematical Society, vol. 3, No. 3 (Jun., 1952), стр. 407-410
+\emph{Hilbert's Nullstellensatz in Infinite-Dimensional Space}, American Mathematical Society, vol. 3, No. 3 (Jun., 1952), 407--410
 \bibitem{Matsumura}
 H. Matsumura.
-\emph{Commutative algebra.}
+\emph{Commutative algebra}.
 Benjamin/Cummings, 1980.
 \end{thebibliography}
 \end{document}
