@@ -459,7 +459,7 @@ $$
 Пусть $f\in\mathbf{K}\{y\},\ord f=l$  и $n\in\mathbb{N},0\le k\in\mathbb{Z}$, такие, что $n>2k$. \emph{Обобщёнными сепарантами} многочлена $f$ будем назвать многочлены $S_{f,n,k}=\sum\limits_{j=0}^{l}C_n^{k - l + j
 }\left(\frac{\partial f}{\partial y_j}\right)^{(k - l + j)}$. В частности, при $k=0$ обобщённая сепаранта совпадает с обычной: $S_{f,n,0}=S_f = \frac{\partial f}{\partial y_l}$. 
 \end{definition}
-Из доказанного выше следует, что $f^{(n)}= \sum\limits_{i=0}^{m} S_{f,n,i} \, y_{n+l -i}+ Q$, где $2k<n\in\mathbb{N}\,,\ord Q < n+l-k$.
+Из доказанного выше следует, что $f^{(n)}= \sum\limits_{i=0}^{k} S_{f,n,i} \, y_{n+l -i}+ Q$, где $2k<n\in\mathbb{N}\,,\ord Q < n+l-k$.
 
 \bigskip
 
@@ -662,7 +662,7 @@ $V=\mathbf{V}(J)\subseteq K^{q+1}$,
 
 Каждое из ${U}^n_k$ разложим на неприводимые многообразия $W=\{{W}_{1},\ldots,{W}_{n_k}\}$. Пусть $V^n_k=\{{V}^n_{k,1},\ldots,{V}^n_{k,i_k}\}$~--- все элементы $W$, удовлетворяющие условию ${W}_{j}\not\subseteq\mathbf{V}(G_k)$.
 
-Пусть  $S_k^n=(h,f,\ldots,f^{(n+k)})+G_0+\ldots+ G_{k-1}\subseteq K\{y\}$. Из определения ${U}_k^n$ видно, что ${U}_k^n=\mathbf{V}(S_k^n)\subseteq K^{\infty}$. А каждому многообразию ${V}_{k,i}^n$ соответствует радикал $R_{k,i}^n$ некоторой примарной компоненты идеала $S_k^n$.
+Пусть  $S_k^n=\left(h,f,\ldots,f^{(n+k)}\right)+G_0+\ldots+ G_{k-1}\triangleleft K\{y\}$. Из определения ${U}_k^n$ видно, что ${U}_k^n=\mathbf{V}(S_k^n)\subseteq K^{\infty}$. Каждому многообразию ${V}_{k,i}^n$ соответствует радикал $R_{k,i}^n$ некоторой примарной компоненты идеала $S_k^n$.
 
 
 \begin{lemma} \label{lemma:o_ideale}
@@ -670,18 +670,17 @@ $V=\mathbf{V}(J)\subseteq K^{q+1}$,
 \end{lemma}
 
 \begin{proof}
-Рассмотрим многочлен $ f^{(m)}$, $n\le m\le n+k$. По следствию~\ref{corollary:deriv_equal} и определению $g_{k,n}$ верно, что
+Рассмотрим многочлен $f^{(m)}$, $n\le m\le n+k$. По следствию~\ref{corollary:deriv_equal} и определению $g_{k,n}$ верно, что
 
 $$
-f^{(m)}= \sum\limits_{i=0}^{p} S_{f,m,i}y_{m+l -i} + f_{m,n}=\sum\limits_{i=0}^{m-n} g_{i,m}y_{m+l -i} + f_{m,n},
+f^{(m)}= \sum\limits_{i=0}^{m-n} S_{f,m,i}y_{m+l -i} + f_{m,n}=\sum\limits_{i=0}^{m-n} g_{i,m}y_{m+l -i} + f_{m,n},
 $$
-
 где многочлен $f_{m,n}$ не зависит от переменных старше $y_{n+l-1}$. Заметим, что $\sum\limits_{i=0}^{m-n} g_{i,m}y_{m+l -i}$ принадлежит идеалу  $(G_0,\ldots, G_{k-1})\subseteq K[y_0,\ldots,y_{k+n+l}]$,  порождающие которого зависят от переменных не старше $y_{n+l}$.
 
 Рассмотрим идеал
 
 $$
-T_k^n=(h,f,\ldots,f^{(n)},f_{n+1,n},\ldots,f_{n+k,n}) + G_0+\ldots+ G_{k-1}\subseteq K[y_0,\ldots,y_{n+l}].
+T_k^n=(h,f,\ldots,f^{(n)},f_{n+1,n},\ldots,f_{n+k,n}) + G_0+\ldots+ G_{k-1}\triangleleft K[y_0,\ldots,y_{n+l}].
 $$
 
 Тогда порождающие идеала $S_k^n$, а следовательно всех его примарых компонент, принадлежат идеалу $T_k^n$. По лемме~~\ref{lemma:o proekcii} верно, что
