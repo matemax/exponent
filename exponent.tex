@@ -675,7 +675,7 @@ $V=\mathbf{V}(J)\subseteq K^{q+1}$,
 $$
 f^{(m)}= \sum\limits_{i=0}^{m-n} S_{f,m,i}y_{m+l -i} + f_{m,n}=\sum\limits_{i=0}^{m-n} g_{i,m}y_{m+l -i} + f_{m,n},
 $$
-где многочлен $f_{m,n}$ не зависит от переменных старше $y_{n+l-1}$. Заметим, что $\sum\limits_{i=0}^{m-n} g_{i,m}y_{m+l -i}$ принадлежит идеалу  $(G_0,\ldots, G_{k-1})\subseteq K[y_0,\ldots,y_{k+n+l}]$,  порождающие которого зависят от переменных не старше $y_{n+l}$.
+где многочлен $f_{m,n}$ не зависит от переменных старше $y_{n+l-1}$. Заметим, что $\sum\limits_{i=0}^{m-n} g_{i,m}y_{m+l -i}$ принадлежит идеалу  $(G_0,\ldots, G_{k-1})\triangleleft K[y_0,\ldots,y_{k+n+l}]$,  порождающие которого зависят от переменных не старше $y_{n+l}$.
 
 Рассмотрим идеал
 
@@ -694,9 +694,10 @@ $$
 \begin{remark}\label{remark:o_prinadleznosti_reshenia}
 Предположим, что $[f,S_f]=1$, а $[f]+(h)\neq 1$. Тогда ${V}_{f}$ не пусто. Рассмотрим точку $b\in{V}_{f}$. Докажем, что она принадлежит хотя бы одному из многообразий ${V}_{k,i}^n$ при фиксированном $n$. Мы знаем, что 
 $$
-\varnothing=\mathbf{V}(f,\ldots,f^{(p)},S_f,\ldots,S_f^{(p)})\supseteq \mathbf{V}(h,f,\ldots,f^{(p)})\bigcap\mathbf{V}(S_f,\ldots,S_f^{(p)})=\varnothing.
+\varnothing=\mathbf{V}\left(f,\ldots,f^{(p)},S_f,\ldots,S_f^{(p)}\right)\supseteq \mathbf{V}\left(h,f,\ldots,f^{(p)}\right)\bigcap\mathbf{V}\left(S_f,\ldots,S_f^{(p)}\right)=\varnothing.
 $$
- А так как $b\in \mathbf{V}(h,f,\ldots,f^{(p)})$, то $b$ не может входить в $\mathbf{V}(S_f,\ldots,S_f^{(p)})$. Следовательно существует $i\le p$, что $b \not\in \mathbf{V}(G_i)$, так как  в порождающие элементы идеалов $G_j$ входят соответственно все производные $S_f$ вплоть до $(S_f)^{(p)}$. Остаётся взять наименьшее такое $i$ и получим, что $b\in {U}_{i}^n$, а вместе с этим $b$ лежит и в какой неприводимой компоненте ${U}_{i}^n$, не принадлежащей $\mathbf{V}(G_{i})$.
+ А так как $b\in \mathbf{V}\left(h,f,\ldots,f^{(p)}\right)$, то $b$ не может входить в $\mathbf{V}\left(S_f,\ldots,S_f^{(p)}\right)$.
+Следовательно, существует $i\le p$, такое, что $b \not\in \mathbf{V}(G_i)$, так как среди порождающих элементов идеала $G_j$ имеется $(S_f)^{(j)}$. Остаётся взять наименьшее такое $i$, и получим, что $b\in {U}_{i}^n$, а вместе с этим $b$ лежит и в какой-то неприводимой компоненте ${U}_{i}^n$, не принадлежащей $\mathbf{V}(G_{i})$.
 \end{remark}
 
 \begin{definition}
