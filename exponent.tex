@@ -708,7 +708,7 @@ $$
 \end{remark}
 
 \begin{definition}
-Пусть $f\in K\{y\}$, $[f,S_f]=1$.  Глубиной решения $b\in {V}_f$  будем называть число $k$, такое что $b\in {U}_k^n$, но $b\not\in {U}_{k+1}^n$, при $n \ge\max\{ 2p+1,\ord{h},\ord{f},w\}$ .
+Пусть $f\in K\{y\}$, $[f,S_f]=1$.  Глубиной решения $b\in {V}_f$  будем называть число $k$, такое, что $b\in {U}_k^n$, но $b\not\in {U}_{k+1}^n$, при $n \ge\max\{ 2p+1,\ord{h},\ord{f},w\}$ .
 \end{definition}
 
 
@@ -720,15 +720,14 @@ $$
 \end{lemma}
 
 \begin{proof}
-Предположим противное, то есть существует решение $b\in{V}_f$ и существуют $n_1$ и $n_2$ такие, что  глубина $b$ при $n_1$  равна $d_1$, а при $n_2$ равна $d_2$, и $d_1\not=d_2$. Заметим, что так как ${U}_k^n={V}_{f,n+k}\bigcap\left(\bigcap\limits_{m=0}^{k-1}\mathbf{V}\left(G_m\right)\right)$, то принадлежность $b$  многообразию ${U}_{d_1}^{n_1}$ и отсутствие $b$ в ${U}_{d_1+1}^{n_1}$ означает, что $b\not\in\bigcap\limits_{m=0}^{d_1}\mathbf{V}\left(G_m\right)$ и $b\in\bigcap\limits_{m=0}^{d_1-1}\mathbf{V}\left(G_m\right)$. Аналогично, получаем, что $b\not\in\bigcap\limits_{m=0}^{d_2}\mathbf{V}\left(G_m\right)$ и $b\in\bigcap\limits_{m=0}^{d_2-1}\mathbf{V}\left(G_m\right)$. Не ограничивая общности, пусть $d_1<d_2$. Но тогда мы приходим к противоречию, что 
+Предположим противное, то есть существует решение $b\in{V}_f$ и существуют $n_1$ и $n_2$ такие, что  глубина $b$ при $n_1$  равна $d_1$, а при $n_2$ равна $d_2$, и $d_1\not=d_2$. Заметим, что так как ${U}_k^n={V}_{f,n+k}\bigcap\left(\bigcap\limits_{m=0}^{k-1}\mathbf{V}\left(G_m\right)\right)$, то принадлежность $b$  многообразию ${U}_{d_1}^{n_1}$ и отсутствие $b$ в ${U}_{d_1+1}^{n_1}$ означает, что $b\not\in\bigcap\limits_{m=0}^{d_1}\mathbf{V}\left(G_m\right)$ и $b\in\bigcap\limits_{m=0}^{d_1-1}\mathbf{V}\left(G_m\right)$. Аналогично, получаем, что $b\not\in\bigcap\limits_{m=0}^{d_2}\mathbf{V}\left(G_m\right)$ и $b\in\bigcap\limits_{m=0}^{d_2-1}\mathbf{V}\left(G_m\right)$. Не ограничивая общности, пусть $d_1<d_2$. Но тогда мы приходим к противоречию: 
 $$
 b\in\bigcap\limits_{m=0}^{d_2-1}\mathbf{V}\left(G_m\right)\subseteq\bigcap\limits_{m=0}^{d_1}\mathbf{V}\left(G_m\right).
 $$
-Значит наше предположение неверно. Следовательно, для всех  допустимых $n$ глубина решения одна и таже.
-
+%Значит, наше предположение неверно. Следовательно, для всех допустимых $n$ глубина решения одна и та же.
 \end{proof}
 
-\begin{remark}\label{remark:o_sushestvovanii_gllubiny} Тем самым из леммы~\ref{lemma:o_nasledovanii} и замечании~\ref{remark:o_prinadleznosti_reshenia} следует, что глубина решения не зависит от $n$ и корректно определена для любого $b\in {V}_f$.
+\begin{remark}\label{remark:o_sushestvovanii_gllubiny} Тем самым из леммы~\ref{lemma:o_nasledovanii} и замечания~\ref{remark:o_prinadleznosti_reshenia} следует, что глубина решения не зависит от $n$ и корректно определена для любого $b\in {V}_f$.
 \end{remark}
 
 \begin{definition}
@@ -736,30 +735,36 @@ $$
 $$
 G=\{h_1,\ldots,h_m,\ldots\,\}\subset K\{y\}.
 $$
-Рассмотрим набор многочленов $G'=\{h_1,\ldots,h_i\}$, $G'\subseteq K[y_0,y_1,\ldots
-y_n]$ и пусть
+Рассмотрим набор из $i$ первых многочленов $G'=\{h_1,\ldots,h_i\}$, $G'\subseteq K[y_0,y_1,\ldots
+y_n]$, и пусть
 $$
 t=(a_0,\ldots,a_n)\in K^{n+1}
 $$
 --- формальное решение системы уравнений $h_1=\ldots=h_i=0$. Тогда мы будем говорить, что формальное решение
-$t$ \emph{продлевается} до формального решения системы
-$$
-h_1=\ldots=h_i=h_{i+1}=0, \quad\mbox{где}\quad h_{i+1}\subseteq K[y_0,y_1,\ldots
-y_{n+m}],
-$$
+$t$ 
+\begin{itemize}
+\item[--] \emph{продлевается} до формального решения системы
+\begin{equation}\label{eq1}
+h_1=\ldots=h_i=h_{i+1}=0,
+\end{equation}
+где $h_{i+1}\subseteq K[y_0,y_1,\ldots y_{n+m}]$,
 если существуют такие $a_{n+1},\ldots, a_{n+m}\in K$, что
 $t'=(a_0,\ldots,a_n,\ldots,a_{n+m})\,\in K^{n+m}$~--- решение
-системы $h_1=\ldots=h_i=h_{i+1}=0$
-
-И, соответственно, \emph{продлевается} до решения системы $G$, если
-мы поочерёдно продлили до решения всех систем $h_1=\ldots=h_i=h_{j}=0\, \forall j\,\in \mathbb{N}$.
+системы~\eqref{eq1};
+\item[--] соответственно, \emph{продлевается} до решения системы $G$, если
+его можно последовательно продлить до решения системы 
+$$
+h_1=\ldots=h_i=\ldots=h_{j}=0$$
+при любом $j > i$.
+\end{itemize}
 \end{definition}
 %!!!!!!
 
 
 
 \begin{definition}
-Пусть многочлен $g(y_0,\ldots,y_t,n)\subseteq K\{y\}$, где $n\in \mathbb{Z}\cup\{\infty,-\infty\}$ некоторый параметр. Функция $\psi(g(y_0,\ldots,y_t,n),{U})$ по многочлену $g(y_0,\ldots,y_t,n)$ и  многообразию ${U}\subseteq K^m$, где $t< m$ или $m=+\infty$, возвращает максимальное $n_0$, для которого выполнено ${U}\subseteq \mathbf{V}(g(y_0,\ldots,y_t,n_0))\subseteq K^m$. Если максимального нет, то возвращает $+\infty$. Если вообще таких  $n_0$ нет, то возвращает $-\infty$.
+Пусть многочлен $g(y_0,\ldots,y_t,n)\in K\{y\}$, где $n\in \mathbb{Z}\cup\{\infty,-\infty\}$~--- некоторый параметр.
+Определим функцию $\psi(g(y_0,\ldots,y_t,n),{U})$, которая по многочлену $g(y_0,\ldots,y_t,n)$ и  многообразию ${U}\subseteq K^m$, где $t< m$ или $m=+\infty$, возвращает максимальное $n_0$, для которого выполнено ${U}\subseteq \mathbf{V}(g(y_0,\ldots,y_t,n_0))\subseteq K^m$. Если максимального нет, то возвращает $+\infty$. Если вообще таких  $n_0$ нет, то возвращает $-\infty$.
 \end{definition}
 
 \begin{lemma}\label{lemma:o_ravenste_psi}
