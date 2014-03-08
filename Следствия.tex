@@ -1033,7 +1033,7 @@ $(S_f)^{(1)}=2y_3$;
 Пусть $g\in [f]$~--- квазилинейный многочлен порядка $m$.
 Его можно записать в виде $g=\sum\limits_{i=0}^ng_if^{(i)}=g'+y_m$, где $g'$ не зависит от переменных порядка выше, чем $m-1$.
 Предположим, что $n<2m-2l$. Тогда будет выполнено, что $2k=2(n+l-m)<n$.
-По следствию~\ref{corollary:deriv_equal} и определению обобщённых сепарант мы можем для любого $m-l\leqslant p\leqslant n$  каждый многочлен $f^{(p)}$ представить в виде $f^{(p)}=\sum\limits_{i=0}^{k} S_{f,n,i} \, y_{p+l -i}+ Q$, где $k=p+l-m$, $\ord Q < p+l-k=m$.
+По следствию~\ref{corollary:deriv_equal} и определению обобщённых сепарант мы можем для любого $m-l\leqslant p\leqslant n$  каждый многочлен $f^{(p)}$ представить в виде $f^{(p)}=\sum\limits_{i=0}^{k} S_{f,p,i} \, y_{p+l -i}+ Q$, где $k=p+l-m$, $\ord Q < p+l-k=m$.
 Все многочлены $f^{(j)}$, $j<m-l$, не зависят от переменных $y_m$ и старше, следовательно, $\dfrac{\partial f^{(j)}}{\partial y_m}=0$.
 
 $$
@@ -1052,7 +1052,7 @@ $$
 %Обозначения в следующей лемме взяты как раз таким путём.
 
 \begin{corollary}
-Пусть $f\in K\{y\}$ и $\left[f,\frac{\partial f}{\partial y_0},\ldots,\frac{\partial f}{\partial y_l}\right]=(1)$. Рассмотрим идеал $[f]+(f)=[f]\subseteq K\{y\}$. Предположим, что для некоторого  $n_0\ge\max\{2p+1,\ord{h_1},\ldots,\ord{h_t},l,w\}$  и для любых $k,i$ верно, что 
+Пусть $f\in K\{y\}$ и $\left[f,\frac{\partial f}{\partial y_0},\ldots,\frac{\partial f}{\partial y_l}\right]=(1)$. Рассмотрим идеал $[f]+(f)=[f]\subseteq K\{y\}$. Предположим, что для некоторого  $n_0\ge\max\{2p+1,l,w\}$  и для любых $k,i$ верно, что 
 $$
 \psi(g_{k,n},\Pi_{n_0+l}(V^{n_0}_{k,i}))\leqslant n_0+k.
 $$ 
