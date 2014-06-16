@@ -1,0 +1,357 @@
+%----------------------------------------------------------------------
+\documentclass[11pt,twoside]{article}
+%----------------------------------------------------------------------
+\def\wdeb{0}
+%---
+\usepackage{amsfonts}
+\usepackage{bezier}
+\usepackage{euscript}
+\usepackage{mathtext}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}%I included these styles
+%========================================
+
+%\usepackage[cp866]{inputenc}
+\usepackage[english,russian]{babel}   % load Babel setup for English
+\usepackage{allerree}
+%\usepackage{multirow}
+%\usepackage{stmaryrd,mathrsfs}
+
+
+\DeclareMathOperator{\ord}{ord}
+
+\theoremstyle{plain}
+\newtheorem{theorem1}{Теорема}
+\newtheorem{definition}[theorem1]{Определение}
+\newtheorem{lemma}[theorem1]{Лемма}
+\newtheorem{corollary}[theorem1]{Следствие}
+
+\begin{document}
+%======================================================================
+\cleanbegin
+%======================================================================
+
+\def\udk{512}
+\ltitle{ Обобщённая сепаранта}
+{М.\,А.~Лимонов\footnote[1]{%
+{\it Лимонов Максим Амирьянович} --- аспирант
+каф. высшая алгебра мех.-мат. ф-та МГУ,
+e-mail: matemaks@ya.ru.}
+}
+
+
+\iabstract{ Пусть  $f\in K\{y\}$ многочлен в кольце  дифференциальных многочленов от одной дифференциальной переменной $y$ и одним дифференцированием $\delta$. Рассмотрим многочлен $g=\delta^n(f)$, тогда для любой переменной $y_k$ многочлен $g$  можно представить в виде $g=A_ky_k+g'$, где $g'$ не зависит от $y_k$. Если $y_k$ старшая переменная $g$, то $A_k$ является  сепаранта многочлена $f$. Для больших $n$ и $k$ мы нашли формулу для $A_k$ и показали использование её.
+}
+{%КЛЮЧЕВЫЕ СЛОВА НА РУССКОМ ЯЗЫКЕ:
+Дифференциальный многочлен, сепаранта, обобщ\"eнная сепаранта
+квазилинейный многочлен.}
+{%АННОТАЦИЯ НА АНГЛИЙСКОМ ЯЗЫКЕ:
+Let $f\in K\{y\}$ be a polynomial in a ring of differential polynomials with one differential variable $y$ and one differentiatial operator $\delta$. Let us consider $g=\delta^n(f)$. This polynomial can be represented in the following form $g=A_ky_k+g'$ for any variable $y_k$, where $g'$ does not depend on $y_k$. If $y_k$ has the highest order of variables of $g$, then $A_k$ is a separant of $g$. Thus we find a formula for $A_k$ that is correct for some large numbers $k$ and $n$. Also the author demonstrates some applications of this formula.
+
+}
+{%КЛЮЧЕВЫЕ СЛОВА НА АНГЛИЙСКОМ ЯЗЫКЕ:
+Differential polynomial, separant, generalized  separant, quasilinear polynomial.}
+
+%------------------------------------------------------------------
+Хорошо известно, что если $f$ дифференциальный многочлен,  то все его производные  линейны по старшей переменной (все определения смотри ниже). В частности, если у нас одна дифференциальная переменная и одно дифференцирование, то $n$-ую производную $f$ можно расписать следующим образом $f^{(n)}=S_fy_{n+l}+g$, где $l$~--- порядок многочлена $f$, $S_f$~--- сепаранта $f$, многочлен $g$  зависит от переменных, порядок которых меньше $n+l$.  Таким образом, у всех производных $f$ есть общая постоянная часть при старшей переменной. Появляется вопрос: а если рассмотреть не самую старшую переменную, а, например,  вторую по порядку переменную, будут ли они линейны и будет ли у них также выделится нечто постоянное?
+
+Дадим несколько необходимых определений и обозначений.
+
+\begin{definition}
+Кольцо $\mathcal{R}$ называется \emph{алгеброй Ритта}, если оно является алгеброй над~$\mathbb{Q}$.
+\end{definition}
+
+В дальнейшем  мы будем считать, что поле ${K}$, над которым мы будем рассматривать многочлены,  будет алгеброй Ритта. Над этим полем зададим тождественно нулевое дифференцирование (см.~определение ниже).
+
+\begin{definition}
+Отображение $\delta: \mathcal{R} \to \mathcal{R}$ называется \emph{дифференцированием}, если для любых элементов $a$ и $b$ кольца $\mathcal{R}$
+выполнены следующие свойства:
+\begin{enumerate}
+  \item $\delta(a+b)= \delta(a)+\delta(b)$~--- линейность;
+  \item $\delta(ab)=a\delta(b)+b\delta(a)$~--- правило Лейбница.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Кольцо $\mathcal{R}$ называется \emph{обыкновенным дифференциальным кольцом}, если на нем задано одно дифференцирование.
+\end{definition}
+
+\begin{definition}
+Пусть $K$~--- обыкновенное дифференциальное поле.
+\emph{Кольцом дифференциальных многочленов} от одной неизвестной над $K$
+называется кольцо многочленов от счетного числа переменных ${K}[y_0,\ldots,y_n,\ldots]$
+(обозначается ${K}\{y\}$)
+с дифференцированием $\delta$, таким, что $\delta(y_i)=y_{i+1}$ и $\delta$, ограниченное на ${K}$, совпадает с дифференцированием поля $K$. Дифференцирование $\delta$, заданное таким способом, однозначно продолжается на $K\{y\}$ по линейности и правилу Лейбница.
+\end{definition}
+
+В дальнейшем для удобства мы будем обозначать $n$-ю производную многочлена $f$ как $\delta^n(f)=f^{(n)}$. Также нам потребуется понятие порядка многочлена и сепаранты.
+
+\begin{definition}
+Пусть $M = \prod\limits_{i=0}^ny_i^{a_i}$, где $a_i \ge 0$, причем $a_n > 0$. Тогда $n$ называется \emph{порядком} монома $M$ (обозначение: $\ord M=n$). Соответственно, порядком многочлена называется максимальный порядок
+мономов, его составляющих.
+\end{definition}
+
+\begin{definition}
+Будем говорить, что переменная $y_i$ старше переменной $y_j$ (обозначение: $y_i \succ y_j$), если $i>j$.
+\end{definition}
+\begin{definition}
+\emph{Дифференциальным идеалом} дифференциального кольца $\mathcal{R}$ называется идеал $I$ такой, что $\delta(I)\subseteq I$.
+\end{definition}
+
+
+\begin{definition}
+Для элемента $f$ кольца $\mathbb{K}\{y\}$ определим \emph{сепаранту} $S_f$
+как частную производную по старшей переменной. Для элементов поля полагаем ее нулем.
+\end{definition}
+
+\begin{definition} Многочлен, не равный нулю, называется \emph{квазилинейным}, если
+его сепаранта принадлежит полю $K$.
+\end{definition}
+
+
+
+Будем обозначать скобками <<()>>,<<$[~]$>>,<<$\{\}$>> соответственно
+алгебраический, дифференциальный, радикальный дифференциальный
+идеалы, порожд\"енные элементами, заключенными внутри скобок.
+
+
+
+
+Далее мы будем использовать букву $n$ для обозначения порядка дифференцирования и $l$ для порядка многочлена.
+
+
+\begin{lemma}\label{lemma:der_monom}
+Пусть моном $M$ записан в виде $M=y_{r_1}\ldots y_{r_d}$. Тогда
+$$
+M^{(n)} =\sum\limits_{\stackrel{s_i\ge0,}{
+s_1+\ldots+s_d=n}}\frac{n!}{s_1!\ldots s_d!}
+\prod\limits_{i=1}^dy_{r_i+s_i}.
+$$
+\end{lemma}
+\begin{proof}
+Следует непосредственно из правила Лейбница.
+\end{proof}
+
+
+\begin{lemma}\label{lemma:commutative derivatives}
+Пусть $f$~--- дифференциальный многочлен. Тогда для любого $s\in\mathbb{N}$ 
+$$
+\frac{\partial f^{(1)}}{\partial y_s}=\left(\frac{\partial f}{\partial y_s}\right)^{(1)}+\frac{\partial f}{\partial y_{s-1}},
+$$
+где $\frac{\partial}{\partial y_s}$~--- обычная частная производная.
+\end{lemma}
+\begin{proof}
+Пусть $l=\ord f$. Воспользуемся формулой $f^{(1)}=\sum\limits_{i=0}^l\frac{\partial f}{\partial y_i}y_{i+1}$, которая следует из правила Лейбница. Имеем 
+$$
+\frac{\partial f^{(1)}}{\partial y_s}=\frac{\partial\left(\sum\limits_{i=0}^l\frac{\partial f}{\partial y_i}y_{i+1}\right)}{\partial y_s}=\sum\limits_{i=0}^l\frac{\partial \frac{\partial f}{\partial y_i} }{\partial y_s}y_{i+1}+\sum\limits_{i=0}^l\frac{\partial y_{i+1}}{\partial y_s}\frac{\partial f}{\partial y_i}.
+$$
+Во второй сумме только слагаемое 
+$\frac{\partial y_{s}}{\partial y_s}\frac{\partial f}{\partial y_{s-1}}=\frac{\partial f}{\partial y_{s-1}}$ 
+не равно 0, т.~е. 
+$$
+\frac{\partial f^{(1)}}{\partial y_s}=\sum\limits_{i=0}^l\frac{\partial \frac{\partial f}{\partial y_i}}{\partial y_s}y_{i+1}+\frac{\partial f}{\partial y_{s-1}}=\sum\limits_{i=0}^l\frac{\partial \frac{\partial f}{\partial y_s}}{\partial y_i}y_{i+1}+\frac{\partial f}{\partial y_{s-1}}=\left(\frac{\partial f}{\partial y_s}\right)^{(1)}+\frac{\partial f}{\partial y_{s-1}}.
+$$
+\end{proof}
+
+\begin{lemma}\label{lemma:f^(n)}
+Пусть $f$~--- дифференциальный многочлен. Тогда для любых $n, s \in\mathbb{N}$ верно
+$$
+\frac{\partial f^{(n)}}{\partial y_s} = \sum\limits_{i=0}^n  C_n^i  \left(\frac{\partial f}{\partial y_{i+s-n}}\right)^{(i)}.
+$$
+\end{lemma}
+\begin{proof}
+Докажем это утверждение индукцией по $n$.  База ($n=1$) верна по лемме~\ref{lemma:commutative derivatives}. Предположим, что для $n=k$ утверждение верно.
+Докажем, что утверждение верно при $n=k+1$. Пусть $f^{(1)}=g$. Тогда
+$\frac{\partial f^{(k+1)}}{\partial y_s} = \frac{\partial g^{(k)}}{\partial y_s}$.
+Применим предположение индукции к многочлену $g^{(k)}$. Имеем 
+$$
+\frac{\partial f^{(k+1)}}{\partial y_s} =  \sum\limits_{i=0}^k  C_k^i  \left(\frac{\partial g}{\partial y_{i+s-k}}\right)^{(i)}=\sum\limits_{i=0}^k  C_k^i  \left(\frac{\partial f^{(1)}}{\partial y_{i+s-k}}\right)^{(i)}. 
+$$
+Воспользуемся линейностью дифференцировния и леммой~\ref{lemma:commutative derivatives} в каждом слагаемом в последней сумме:  
+$$
+\left(\frac{\partial f^{(1)}}{\partial y_{i+s-k}}\right)^{(i)}= \left(\frac{\partial f}{\partial y_{i+s-k-1}}+\left(\frac{\partial f}{\partial y_{i+s-k}}\right)^{(1)}\right)^{(i)}=\left(\frac{\partial f}{\partial y_{i+s-k-1}}\right)^{(i)}+\left(\frac{\partial f}{\partial y_{i+s-k}}\right)^{(i+1)}.
+$$ 
+Следовательно,
+\begin{gather*}
+\frac{\partial f^{(k+1)}}{\partial y_s}=\sum\limits_{i=0}^k  C_k^i\left(\frac{\partial f}{\partial y_{(i+s-k)-1}}\right)^{(i)}+\sum\limits_{i=0}^k  C_k^i\left(\frac{\partial f}{\partial y_{i+s-k}}\right)^{(i+1)} = \\
+= \sum\limits_{i=0}^k  C_k^i\left(\frac{\partial f}{\partial y_{(i+s-k)-1}}\right)^{(i)}+\sum\limits_{i=1}^{k+1}  C_k^{i-1}\left(\frac{\partial f}{\partial y_{i+s-(k+1)}}\right)^{(i)}=\sum\limits_{i=1}^{k+1} C_{k+1}^{i}\left(\frac{\partial f}{\partial y_{i+s-(k+1)}}\right)^{(i)}
+\end{gather*}
+Переход доказан.
+\end{proof}
+Рассмотрим дифференциальный многочлен $g$ порядка $l$ и произвольное
+целое число $k\ge0$. Представим многочлен в виде $g=g_0+A_{g,k}y_k$, где
+$g_0$ не зависит от $y_k$, а многочлен $y_kA_{g,k}$ получается из
+многочлена $g$ нахождением всех мономов, зависящих от $y_k$, и
+вынесением этой переменной за скобки.
+\begin{theorem1}\label{lemma:A_fn}
+Пусть $f$~--- дифференциальный многочлен и $\ord f = l$.
+Тогда для любых $k$ и $n$ с условием  $n\in\mathbb{N},0\le k\in\mathbb{Z}$, $n>2k$ верно следующее
+равенство:
+$$
+A_{f^{(n)}, n+l-k}=\sum\limits_{j=0}^{l}C_n^{k - l + j
+}\left(\frac{\partial f}{\partial y_j}\right)^{(k - l + j)}.
+$$
+Здесь мы по умолчанию понимаем $C_n^{k}=0$ для отрицательных
+$k$.
+\end{theorem1}
+
+
+\begin{proof}
+Заметим, что в силу линейности дифференцирования мы можем считать
+$f$ мономом. Пусть $\deg f = d$ и $f$ представляется в
+виде
+$$
+f=\prod\limits_{i=0}^ly_i^{m_i}=\prod\limits_{i=1}^{d}y_{r_i},
+$$
+где $r_i\le r_j$ при $i \le j$. Тогда применив лемму~\ref{lemma:der_monom} к $f^{(n)}$,
+получим
+$$
+f^{(n)}=\sum\limits_{\stackrel{s_i\ge0,}{
+s_1+\ldots+s_d=n}}\frac{n!}{s_1!\ldots s_d!}
+\prod\limits_{i=1}^dy_{r_i+s_i}.
+$$
+Так как $n>2k$, то в каждом мономе вида $\prod_{i=1}^d y_{r_i+s_i}$
+переменная $y_{n+l-k}$ встречается единожды. Действительно, пусть
+$y_{r_i+s_i}=y_{n+l-k}$ и $y_{r_j+s_j}=y_{n+l-k}$. Но тогда
+$$
+r_i+s_i+r_j+s_j = 2(n+l-k).
+$$
+Следовательно,
+$$
+2(n+l-k)\le 2r_d + \sum_{i=1}^d s_d = 2l +n.
+$$
+Значит, $n \le 2k$, что противоречит выбору $n>2k$. Мы получили, что многочлен $f^{(n)}$ линеен по всем переменным $y_{n+l-k},n>2k $. Пусть $f^{(n)}=f^{(n)}_0+A_{f^{(n)},n+l-k}y_{n+l-k}$. Тогда, в силу линейности $f^{(n)}$ по $y_{n+l-k}$,
+$$
+\frac{\partial f^{(n)}}{\partial y_{n+l-k}}=\frac{\partial (f^{(n)}_0+A_{f^{(n)},n+l-k}y_{n+l-k})}{\partial y_{n+l-k}}=A_{f^{(n)},n+l-k}.
+$$
+
+С другой стороны, по лемме~\ref{lemma:f^(n)} $\frac{\partial f^{(n)}}{\partial y_{n+l-k}}= \sum\limits_{i=0}^n  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)} $. Заметим, что так как $\ord f^{(n)} = l$, то для всех $i>k$ выполнено $\frac{\partial f}{\partial y_{i+l-k}}=0$. Отсюда следует, что 
+\begin{gather*}
+A_{f^{(n)},n+l-k}=\sum\limits_{i=0}^n  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)}=\sum\limits_{i=0}^k  C_n^i  \left(\frac{\partial f}{\partial y_{i+l-k}}\right)^{(i)}=\\
+=\sum\limits_{j=l-k}^l  C_n^{k-l+j}  \left(\frac{\partial f}{\partial y_{j}}\right)^{(k-l+j)}=\sum\limits_{j=0}^{l}C_n^{k - l + j
+}\left(\frac{\partial f}{\partial y_j}\right)^{(k - l + j)}.
+\end{gather*}
+Последнее равенство верно, так как если $l>k$, то из $0 \le j<l-k \Longrightarrow C_n^{k-l+j}=0$, а если $l<k$, то  $k-l\le j<0 \Longrightarrow \frac{\partial f}{\partial y_{j}}=0$. Лемма доказана.
+\end{proof}
+
+\begin{corollary}\label{corollary:deriv_equal}
+Пусть $f$~--- дифференциальный многочлен, $\ord f = l$ и $n\in\mathbb{N},0\le k\in\mathbb{Z}$, $n>2k$.
+Тогда
+\begin{enumerate}
+\item $\ord A_{f^{(n)},n+l-k}\le k+l$.
+
+\item Выполнено равенство
+$$
+f^{(n)}=\sum\limits_{i=0}^{k} A_{f^{(n)},n+l -i} \, y_{n+l-i} + Q,
+$$
+где $\ord Q < n+l-k$.
+%В частности, по переменным $y_{n+l-k}, \ldots, y_{n+l}$ $n$-я производная дифференциального многочлена является линейной.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof} Первый пункт непосредственно следует из леммы~\ref{lemma:A_fn}.
+
+Докажем индукцией по $m\le k$, что
+$$
+f^{(n)}=\sum\limits_{i=0}^{m} A_{f^{(n)},n+l -i} \, y_{n+l -i} + Q_m,
+$$
+где $\ord Q_m < n+l-m$. База ($m = 0$) выполнена:
+$$
+ f^{(n)}=S_fy_{n+l}+Q_0=A_{f^{(n)}, n + l} \, y_{n+l} +Q_0.
+$$
+
+Предположим, что для $m<k$ утверждение доказано. Докажем его для $m+1\le k$.
+%По предположению имеем, что
+%$$
+%f^{(n)}=\sum\limits_{i=0}^{m} A_{f^{(n)},n+l -i}y_{n+l -i} + Q_m.
+%$$
+Рассмотрим слагаемые суммы
+$$
+ \sum\limits_{i=0}^{m} A_{f^{(n)},n+l -i} \, y_{n+l -i}.
+$$
+Из первого утверждения следует, что
+$$
+\ord A_{f^{(n)},n+l -i}\le l+i\le l+m.
+$$
+Так как $m+1 \le k < \frac{n}{2}$, то $l+m < n+l-(m+1)$, 
+и среди слагаемых суммы переменная $y_{n+l-(m+1)}$ не встречается.
+Следовательно,
+$$
+A_{f^{(n)}, n+l-(m+1)} = A_{Q_{m}, n+l-(m+1)}.
+$$
+Если переменная $y_{n+l-(m+1))}$ встречается в $Q_m$, то она является старшей.
+Поэтому
+$$
+ Q_{m}=A_{Q_{m}, n+l-(m+1)}y_{n+l-(m+1)}+Q_{m+1}
+$$
+где $\ord Q_{m+1}<n+l-(m+1)$,
+откуда
+$$
+f^{(n)}=\sum\limits_{i=0}^{m+1} A_{f^{(n)},n+l-i}y_{n+l-i} + Q_{m+1}.
+$$
+Переход доказан.
+\end{proof}
+\begin{definition}
+Пусть $f\in{K}\{y\},\ord f=l$  и $n\in\mathbb{N},0\le k\in\mathbb{Z}$, такие, что $n>2k$. \emph{Обобщ\"енными сепарантами} многочлена $f$ будем назвать многочлены $S_{f,n,k}=\sum\limits_{j=0}^{l}C_n^{k - l + j
+}\left(\frac{\partial f}{\partial y_j}\right)^{(k - l + j)}$. В частности, при $k=0$ обобщ\"енная сепаранта совпадает с обычной: $S_{f,n,0}=S_f = \frac{\partial f}{\partial y_l}$. 
+\end{definition}
+
+Из доказанного выше следует, что $f^{(n)}= \sum\limits_{i=0}^{k} S_{f,n,i} \, y_{n+l -i}+ Q$, где $2k<n\in\mathbb{N}\,,\ord Q < n+l-k$. Таким образом мы получили, что старшие производные  дифференциального многочлена линейны не только по своей старшей переменной, но и по переменным с меньшим порядком. Вдобавок, теперь мы знаем как выглядят мономы в $f^{(n)}$ содержащие переменные высоких порядков, что может быть использовано в изучении дифференциальных многочленов. 
+
+
+
+\begin{corollary}
+Пусть $f\in K\{y\}$, где $K$~--- поле нулевой характеристики, и $\ord f = l$.
+Если в идеале $[f]$ содержится квазилинейный многочлен, то $\left[f,\frac{\partial f}{\partial y_0},\ldots,\frac{\partial f}{\partial y_l}\right]=(1)$.
+\end{corollary}
+
+\begin{proof}
+Пусть $g\in [f]$~--- квазилинейный многочлен порядка $m$.
+Его можно записать в виде $g=\sum\limits_{i=0}^ng_if^{(i)}=g'+y_m$, где $g'$ не зависит от переменных порядка выше, чем $m-1$.
+Предположим, что $n<2m-2l$. Тогда будет выполнено, что $2k=2(n+l-m)<n$.
+По следствию~\ref{corollary:deriv_equal} и определению обобщ\"енных сепарант мы можем для любого $m-l\leqslant p\leqslant n$  каждый многочлен $f^{(p)}$ представить в виде $f^{(p)}=\sum\limits_{i=0}^{k} S_{f,p,i} \, y_{p+l -i}+ Q$, где $k=p+l-m$, $\ord Q < p+l-k=m$.
+Все многочлены $f^{(j)}$, $j<m-l$, не зависят от переменных $y_m$ и старше, следовательно, $\dfrac{\partial f^{(j)}}{\partial y_m}=0$.
+
+$$
+1= \frac{\partial g}{\partial y_m}=\sum\limits_{i=0}^{n}\frac{\partial g_i}{\partial y_m}f^{(i)}+\sum\limits_{i=m-l}^{n}\frac{\partial f^{(i)}}{\partial y_m}g_i= \sum\limits_{i=0}^{n}\frac{\partial g_i}{\partial y_m}f^{(i)}+\sum\limits_{i=m-l}^{n}S_{f,i,i+l-m}g_i\in \left[f,\frac{\partial f}{\partial y_0},\ldots,\frac{\partial f}{\partial y_l}\right].
+$$
+
+Вторая часть суммы принадлежит идеалу $\left[f,\frac{\partial f}{\partial y_0},\ldots,\frac{\partial f}{\partial y_l}\right]$,
+т.~к. $S_{f,n,k}=\sum\limits_{j=0}^{l}C_n^{k - l + j
+}\left(\frac{\partial f}{\partial y_j}\right)^{(k - l + j)}$. % по определению $S_{f,n,k}$.
+
+Если $n>2m-2l$, то мы можем продифференцировать $g$ $k$ раз ($k$ определим позже), от этого многочлен не перестанет быть квазилинейным, $m'=m+k$, $n'=n+k$. Возьм\"ем $k$, чтобы выполнялось неравенство $n'<2m'-2l$. Лемма доказа.
+
+\end{proof}
+
+\medskip
+Также с использованием обобщ\"енных сепарант нам удалось решить следующую задачу: дан дифференциальный многочлен $f\in K\{y\}$ с условием $[f,S_f]=(1)$, требуется проверить верно ли равенство $[f]+(S_f)=(1)$ или нет. Как доказал Трушин в работе~\cite{Trushin}, при условии $[f,S_f]=(1)$  равенство идеала $[f]+(S_f)$ единичному эквивалентно существованию в идеале $[f]$  квазилинейного многочлена. 
+
+Точно такое же условие возникает у Колчина в работе~\cite{E. R. Kolchin}. Но как алгоритмически проверять  это условие было непонятно. Но это уже отдельная тема. Колчин ввёл понятие экспоненты дифференциального идеала $I$ (наименьшее такое $m$, что  радикал  идеала $I$ в степени $m$ принадлежит $I$). Колчин рассматривал идеалы, порождённые одним многочленом $f$ первого порядка. Он всё разделил на два случая $[f,S_f]=(1)$ и $[f,S_f]\ne(1)$. В первом случае, Колчин доказал, что если $[f]+(S_f)=(1)$, то экспонента равна 1. 
+
+
+
+
+\newpage
+%------------------------------------------------------------------------
+%---- ПРИМЕР ОФОРМЛЕНИЯ СПИСКА ЛИТЕРАТУРЫ ---------------------------------------
+
+\begin{thebibliography}{99}
+
+\bibitem{Trushin}
+Д. В. Трушин.
+\emph{Идеал сепарант в кольце дифференциальных многочленов.}
+Фундаментальная и прикладная математика, г. 2007, том 13, вып 1, 215--227.
+
+
+\bibitem{E. R. Kolchin}
+E. R. Kolchin.
+\emph{On the Exponents of Differential Ideals.}
+The Annals of Mathematics, 1941, Second Series, Volume 42, Issue 3 , 740--777.
+
+
+
+\end{thebibliography}
+
+
+
+\end{document}
