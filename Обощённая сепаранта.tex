@@ -162,7 +162,7 @@ $\frac{\partial f^{(k+1)}}{\partial y_s} = \frac{\partial g^{(k)}}{\partial y_s}
 $$
 \frac{\partial f^{(k+1)}}{\partial y_s} =  \sum\limits_{i=0}^k  C_k^i  \left(\frac{\partial g}{\partial y_{i+s-k}}\right)^{(i)}=\sum\limits_{i=0}^k  C_k^i  \left(\frac{\partial f^{(1)}}{\partial y_{i+s-k}}\right)^{(i)}. 
 $$
-Воспользуемся линейностью дифференцировния и леммой~\ref{lemma:commutative derivatives} в каждом слагаемом в последней сумме:  
+Воспользуемся линейностью дифференцирования и леммой~\ref{lemma:commutative derivatives} в каждом слагаемом в последней сумме:  
 $$
 \left(\frac{\partial f^{(1)}}{\partial y_{i+s-k}}\right)^{(i)}= \left(\frac{\partial f}{\partial y_{i+s-k-1}}+\left(\frac{\partial f}{\partial y_{i+s-k}}\right)^{(1)}\right)^{(i)}=\left(\frac{\partial f}{\partial y_{i+s-k-1}}\right)^{(i)}+\left(\frac{\partial f}{\partial y_{i+s-k}}\right)^{(i+1)}.
 $$ 
@@ -248,7 +248,7 @@ $$
 \end{enumerate}
 \end{corollary}
 
-\begin{proof} Первый пункт непосредственно следует из леммы~\ref{lemma:A_fn}.
+\begin{proof} Первый пункт непосредственно следует из теоремы~\ref{lemma:A_fn}.
 
 Докажем индукцией по $m\le k$, что
 $$

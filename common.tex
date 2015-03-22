@@ -1,0 +1,680 @@
+\documentclass[11pt]{article}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[T2A]{fontenc}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithm}
+
+\usepackage{geometry}
+\geometry{a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm}
+
+\DeclareMathOperator{\ord}{ord}
+
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+
+\newcommand{\diffField}{\mathcal{F}}
+
+% Стиль для теорем. Заголовок жирным, текст курсивом.
+%\theoremstyle{plain1}
+\newtheorem{theorem1}{Теорема}
+\newtheorem{lemma}[theorem1]{Лемма}
+%\theoremstyle{plain2}
+\newtheorem{theorem2}{Теорема}
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+%\theoremstyle{plain3}
+\newtheorem{theorem3}{Теорема}
+\newtheorem{proposition}[theorem1]{Предложение}
+\newtheorem{corollary}[theorem1]{Следствие}
+\newtheorem*{theorem*}{Теорема}
+\newtheorem*{lemma*}{Лемма}
+\newtheorem*{proposition*}{Предложение}
+\newtheorem*{corollary*}{Следствие}
+
+% Стиль для определений. Заголовок жирным, текст обычным.
+\theoremstyle{definition}
+\newtheorem{definition}[theorem2]{Определение}
+\newtheorem{example}[theorem3]{Пример}
+\newtheorem*{definition*}{Определение}
+\newtheorem*{example*}{Пример}
+
+% Стиль для замечаний. Заголовок курсивом, текст обычным.
+\theoremstyle{remark}
+\newtheorem{remark}[theorem1]{Замечание}
+
+\newtheorem*{remark*}{Замечание}
+
+
+\title{Алгоритм проверки тривиальности <<смешанных>> идеалов\\ в кольце дифференциальных многочленов}
+\author{А. И. Зобнин \and М. А. Лимонов}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+В статье предлагается алгоритм проверки тривиальности идеала
+$[f] + (h_1, \ldots, h_t)$ в обыкновенном кольце дифференциальных многочленов
+при некотором дополнительном условии на многочлен $f$.
+Эта задача тесно связана, с одной стороны, с задачей Колчина об экспонентах дифференциальных идеалов,
+а с другой~--- с вопросами конечности дифференциальных стандартных базисов.
+\end{abstract}
+
+\section{Введение}
+
+В одной из своих ранних работ~\cite{Kolchin41} Эллис Колчин изучал возможные значения экспонент дифференциальных идеалов особого вида.
+Экспонентой идеала $I$ называется минимальное натуральное число $m$, такое, что $\sqrt{I}^m\subset I$ (если такого числа не существует,
+то экспонента считается равной бесконечности).
+Колчин рассматривал идеалы, порождённые дифференциальным многочленом первого порядка.
+В его работе было разобрано несколько достаточно общих случаев (но не все), и в этих случаях было установлено, что экспонента может равняться 1, 2 или~$\infty$.
+В частности им рассматривались дифференциальные многочлены, не имеющие сингулярных корней, то есть такие, что
+\begin{gather}
+\label{nonsingular}
+[f,S_f]\ne(1),
+\end{gather}
+где $S_f$~--- сепаранта~$f$ (частная производная многочлена $f$ по старшей переменной).
+Колчин установил, что если, вдобавок, многочлен $f$ удовлетворяет условию
+\begin{gather}
+\label{strong}
+[f]+(S_f)=(1),
+\end{gather}
+то экспонента идеала $[f]$ равна 1, то есть, идеал $[f]$ является радикальным (этот результат справедлив для многочленов $f$ любого порядка).
+В то же время случай
+\begin{gather}
+\label{nontrivial}
+[f, S_f] = (1), \quad [f] + (S_f) \ne (1)
+\end{gather}
+Колчин оставил неразобранным. Он даже не предложил никакого практического способа проверки того,
+выполняется ли условие~\eqref{strong} при предположении~\eqref{nonsingular}.
+
+С другой стороны, в 2007 году Дмитрий Трушин, изучая так называемый идеал сепарант, доказал~\cite{Trushin},
+что при предположении~\eqref{nonsingular} условие~\eqref{strong} равносильно наличию в идеале квазилинейного многочлена
+(т.~е. дифференциального многочлена, разрешённого относительно старшей производной).
+В свою очередь, это равносильно существованию у идеала $[f]$ конечного дифференциального стандартного базиса (аналога базиса Грёбнера)
+при порядках, близких в некотором смысле к лексикографическому~\cite{Zobnin}.
+
+Как мы видим, в этих задачах возникает одно и то же условие~\eqref{strong} на многочлен $f$.
+Если предположение~\eqref{nonsingular} можно проверить алгоритмически с помощью алгоритма Розенфельда--Грёбнера~\cite{BLOP, Sit},
+то готового алгоритма для проверки тривиальности <<смешанной>> суммы дифференциального и недифференциального идеалов, т.~е. проверки условия~\eqref{strong}, не было известно.
+Более того, высказывались мнения\footnote{Частная беседа одного из авторов с участниками конференции Gr\"obner Bases in Symbolic Analysis, Линц, Австрия, 2006.}, что такая задача алгоритмически неразрешима.
+
+В данной работе мы предъявим алгоритм, проверяющий условие~\eqref{strong} (а на самом деле, решающий более общую задачу):
+при более слабом предположении
+\begin{gather}
+\label{nonsingular_general}
+\left[f, \frac{\partial f}{\partial y_0}, \ldots, \frac{\partial f}{\partial y_l} \right] = (1),
+\end{gather}
+где $l$~--- порядок дифференциального многочлена $f$,
+проверить, верно ли равенство
+\begin{gather}
+\label{strong_general}
+[f] + (h_1, \ldots, h_t) = (1),
+\end{gather}
+где $h_1, \ldots, h_t$~--- произвольные заданные многочлены.
+Идеалы вида $[f] + (h_1, \ldots, h_t)$ мы будем называть <<смешанными>>: вообще говоря, они не являются дифференциальными.
+
+Статья организована следующим образом. В главе~\ref{preliminaries} мы приводим необходимые определения из дифференциальной алгебры.
+В главе~\ref{generalized_separants} строится разложение производной дифференциального многочлена по старшим переменным
+с помощью так называемых обобщенных сепарант. В их терминах в главе~\ref{algorithm} формулируется алгоритм,
+решающий поставленную задачу. В главе~\ref{examples} приводится несколько примеров, иллюстрирующих работу алгоритма.
+
+
+
+\section{Основные определения и обозначения}
+\label{preliminaries}
+Мы будем работать над полем констант $\diffField$ нулевой характеристики.
+
+\begin{definition}
+Кольцо $\mathcal{R}$ называется \emph{алгеброй Ритта}, если оно является алгеброй над~$\mathbb{Q}$.
+\end{definition}
+
+\begin{definition}
+Отображение $\,\delta: \mathcal{R} \to \mathcal{R}$ называется \emph{дифференцированием}, если для любых элементов $a$ и $b$ кольца $\mathcal{R}$
+выполнены следующие свойства:
+\begin{enumerate}
+  \item $\,\delta(a+b)= \,\delta(a)+\,\delta(b)$~--– линейность;
+  \item $\,\delta(ab)=a\,\delta(b)+b\,\delta(a)$~--- правило Лейбница.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Кольцо $\mathcal{R}$ называется \emph{обыкновенным дифференциальным кольцом}, если на нем задано одно дифференцирование.
+\end{definition}
+
+\begin{definition}
+Пусть $\diffField$~--- обыкновенное дифференциальное поле.
+\emph{Кольцом дифференциальных многочленов} от одной неизвестной над $\diffField$
+называется кольцо многочленов от счетного числа переменных $\diffField[y_0,\ldots,y_n,\ldots]$
+(обозначается $\diffField\{y\}$)
+с дифференцированием $\,\delta$, таким, что $\,\delta(y_i)=y_{i+1}$ и $\,\delta$, ограниченное на $\diffField$, совпадает с дифференцированием поля $\diffField$. Дифференцирование $\,\delta$, заданное таким способом, однозначно продолжается на $\diffField\{y\}$ по линейности и правилу Лейбница.
+\end{definition}
+
+В дальнейшем для удобства мы будем обозначать $n$-ю производную многочлена $f$ как $\,\delta^n f$.
+
+\begin{definition}
+Пусть $M = \prod\limits_{i=0}^ny_i^{a_i}$, где $a_i \ge 0$, причем $a_n > 0$. Тогда $n$ называется \emph{порядком} монома $M$ (обозначение: $\ord M=n$). Соответственно, порядком многочлена называется максимальный порядок
+мономов, его составляющих.
+\end{definition}
+
+Будем говорить, что переменная $y_i$ старше переменной $y_j$ (обозначение: $y_i \succ y_j$), если $i>j$.
+
+\begin{definition}
+\emph{Дифференциальным идеалом} дифференциального кольца $\mathcal{R}$ называется идеал $I$, такой, что $\,\delta(I)\subset I$.
+\end{definition}
+
+Будем обозначать через $(F)$ и $[F]$ сответственно алгебраический и дифференциальный идеалы, порождённые элементами из $F$.
+
+\begin{definition}
+Для элемента $f$ кольца $\diffField\{y\}$ определим \emph{сепаранту} $S_f$
+как частную производную по старшей переменной. Для элементов поля $\diffField$ полагаем ее нулем.
+\end{definition}
+
+\begin{definition} Многочлен называется \emph{квазилинейным}, если
+его сепаранта~--- ненулевой элемент поля $\diffField$.
+\end{definition}
+
+
+
+\section{Обобщенные сепаранты}
+\label{generalized_separants}
+Далее мы будем использовать букву $n$ для обозначения порядка дифференцирования и $l$ для порядка многочлена.
+
+Известно, что производные дифференциального многочлена <<линейны>> по своей старшей переменной. Более того, коэффициент перед этой переменной для любого порядка дифференцирования один и тот же~--- это сепаранта:
+\begin{gather}
+\label{separant_formula}
+ \,\delta^n f = S_f y_{l+n} + Q_{f,n},
+\end{gather}
+где $\ord Q_{f,n} < l + n$.
+Мы обобщим это наблюдение на переменные, <<предшествующие>> старшей.
+
+
+\begin{lemma}\label{lemma:der_monom}
+Пусть моном $M$ записан в виде $M=y_{r_1}\ldots y_{r_d}$. Тогда
+$$
+\,\delta^n M =\sum\limits_{\stackrel{s_i\ge0,}{
+s_1+\ldots+s_d=n}}\frac{n!}{s_1!\ldots s_d!}
+\prod\limits_{i=1}^dy_{r_i+s_i}.
+$$
+\end{lemma}
+\begin{proof}
+Следует непосредственно из правила Лейбница.
+\end{proof}
+
+
+\begin{lemma}\label{lemma:commutative derivatives}
+Пусть $f$~--- дифференциальный многочлен. Тогда для любого $s\in\mathbb{N}$ 
+$$
+\frac{\partial \,\delta f}{\partial y_s}=\,\delta \left(\frac{\partial f}{\partial y_s}\right)+\frac{\partial f}{\partial y_{s-1}},
+$$
+где $\frac{\partial}{\partial y_s}$~--- обычная частная производная.
+\end{lemma}
+\begin{proof}
+Пусть $l=\ord f$.
+Воспользуемся формулой $\,\delta f=\sum\limits_{i=0}^l\frac{\partial f}{\partial y_i}y_{i+1}$, которая следует из правила Лейбница. Имеем 
+$$
+\frac{\partial \,\delta f}{\partial y_s}=\frac{\partial\left(\sum\limits_{i=0}^l\frac{\partial f}{\partial y_i}y_{i+1}\right)}{\partial y_s}=\sum\limits_{i=0}^l\frac{\partial \frac{\partial f}{\partial y_i} }{\partial y_s}y_{i+1}+\sum\limits_{i=0}^l\frac{\partial y_{i+1}}{\partial y_s}\frac{\partial f}{\partial y_i}.
+$$
+Во второй сумме только слагаемое 
+$\frac{\partial y_{s}}{\partial y_s}\frac{\partial f}{\partial y_{s-1}}=\frac{\partial f}{\partial y_{s-1}}$ 
+не равно 0, т.~е. 
+$$
+\frac{\partial \,\delta f}{\partial y_s}=\sum\limits_{i=0}^l\frac{\partial \frac{\partial f}{\partial y_i}}{\partial y_s}y_{i+1}+\frac{\partial f}{\partial y_{s-1}}=\sum\limits_{i=0}^l\frac{\partial \frac{\partial f}{\partial y_s}}{\partial y_i}y_{i+1}+\frac{\partial f}{\partial y_{s-1}}=\,\delta\left(\frac{\partial f}{\partial y_s}\right)+\frac{\partial f}{\partial y_{s-1}}.
+$$
+\end{proof}
+
+\begin{lemma}\label{lemma:f^(n)}
+Пусть $f$~--- дифференциальный многочлен. Тогда для любых $n, s \in\mathbb{N}$ верно
+$$
+\frac{\partial \,\delta^n f}{\partial y_s} = \sum\limits_{i=0}^n  C_n^i  \,\delta^i \left(\frac{\partial f}{\partial y_{i+s-n}}\right).
+$$
+\end{lemma}
+\begin{proof}
+Докажем это утверждение индукцией по $n$.  База ($n=1$) верна по лемме~\ref{lemma:commutative derivatives}. Предположим, что для $n=k$ утверждение верно.
+Докажем, что утверждение верно при $n=k+1$. Пусть $\,\delta f=g$. Тогда
+$\frac{\partial \,\delta^{k+1} f}{\partial y_s} = \frac{\partial \,\delta^k g}{\partial y_s}$.
+Применим предположение индукции к многочлену $\,\delta^k g$. Имеем 
+$$
+\frac{\partial \,\delta^{k+1} f}{\partial y_s} =  \sum\limits_{i=0}^k  C_k^i  \,\delta^i \left(\frac{\partial g}{\partial y_{i+s-k}}\right)=\sum\limits_{i=0}^k  C_k^i  \,\delta^i \left(\frac{\partial \,\delta f}{\partial y_{i+s-k}}\right). 
+$$
+Воспользуемся линейностью дифференцирования и леммой~\ref{lemma:commutative derivatives} в каждом слагаемом в последней сумме:  
+$$
+\,\delta^i \left(\frac{\partial \,\delta f}{\partial y_{i+s-k}}\right)=\,\delta^i\left(\frac{\partial f}{\partial y_{i+s-k-1}}+\,\delta\left(\frac{\partial f}{\partial y_{i+s-k}}\right)\right)=\,\delta^i\left(\frac{\partial f}{\partial y_{i+s-k-1}}\right)+\,\delta^{i+1}\left(\frac{\partial f}{\partial y_{i+s-k}}\right).
+$$ 
+Следовательно,
+\begin{gather*}
+\frac{\partial \,\delta^{k+1} f}{\partial y_s}=\sum\limits_{i=0}^k  C_k^i \,\delta^i \left(\frac{\partial f}{\partial y_{(i+s-k)-1}}\right)+\sum\limits_{i=0}^k  C_k^i \,\delta^{i+1} \left(\frac{\partial f}{\partial y_{i+s-k}}\right) = \\
+= \sum\limits_{i=0}^k  C_k^i \,\delta^i \left(\frac{\partial f}{\partial y_{(i+s-k)-1}}\right)+\sum\limits_{i=1}^{k+1}  C_k^{i-1}\,\delta^i \left(\frac{\partial f}{\partial y_{i+s-k-1}}\right)=\sum\limits_{i=1}^{k+1} C_{k+1}^{i}\,\delta^i\left(\frac{\partial f}{\partial y_{i+s-(k+1)}}\right).
+\end{gather*}
+Переход доказан.
+\end{proof}
+Рассмотрим дифференциальный многочлен $g$ порядка $l$ и произвольное
+целое число $k\ge0$. Представим многочлен в виде $g=g_0+A_{g,k}y_k$, где
+$g_0$ не зависит от $y_k$, а многочлен $A_{g,k} y_k$ получается из
+многочлена $g$ нахождением всех мономов, зависящих от $y_k$, и
+вынесением этой переменной за скобки.
+\begin{lemma}\label{lemma:A_fn}
+Пусть $f$~--- дифференциальный многочлен и $\ord f = l$.
+Тогда для любых $k$ и $n$ с условием  $n\in\mathbb{N},0\le k\in\mathbb{Z}$, $n>2k$ верно следующее
+равенство:
+$$
+A_{\,\delta^n f, n+l-k}=\sum\limits_{j=0}^{l}C_n^{k - l + j
+}\,\delta^{k-l+j}\left(\frac{\partial f}{\partial y_j}\right).
+$$
+Здесь мы по умолчанию понимаем $C_n^{k}=0$ для отрицательных
+$k$.
+\end{lemma}
+
+
+\begin{proof}
+Заметим, что в силу линейности дифференцирования мы можем считать
+$f$ мономом. Пусть $\deg f = d$ и $f$ представляется в
+виде
+$$
+f=\prod\limits_{i=0}^ly_i^{m_i}=\prod\limits_{i=1}^{d}y_{r_i},
+$$
+где $r_i\le r_j$ при $i \le j$. Тогда применив лемму~\ref{lemma:der_monom} к $\,\delta^n f$,
+получим
+$$
+\,\delta^n f=\sum\limits_{\stackrel{s_i\ge0,}{
+s_1+\ldots+s_d=n}}\frac{n!}{s_1!\ldots s_d!}
+\prod\limits_{i=1}^dy_{r_i+s_i}.
+$$
+Так как $n>2k$, то в каждом мономе вида $\prod_{i=1}^d y_{r_i+s_i}$
+переменная $y_{n+l-k}$ встречается лишь один раз. Действительно, пусть
+$y_{r_i+s_i}=y_{n+l-k}$ и $y_{r_j+s_j}=y_{n+l-k}$. Но тогда
+$$
+r_i+s_i+r_j+s_j = 2(n+l-k).
+$$
+Следовательно,
+$$
+2(n+l-k)\le 2r_d + \sum_{i=1}^d s_d = 2l +n.
+$$
+Значит, $n \le 2k$, что противоречит выбору $n>2k$. Мы получили, что многочлен $\,\delta^n f$ линеен по всем переменным $y_{n+l-k},n>2k $. Пусть $\,\delta^n f=f_0+A_{\,\delta^n f,n+l-k}y_{n+l-k}$. Тогда, в силу линейности $\,\delta^n f$ по $y_{n+l-k}$,
+$$
+\frac{\partial \,\delta^n f}{\partial y_{n+l-k}}=\frac{\partial (f_0+A_{\,\delta^n f,n+l-k}y_{n+l-k})}{\partial y_{n+l-k}}=A_{\,\delta^n f,n+l-k}.
+$$
+
+С другой стороны, по лемме~\ref{lemma:f^(n)} $\frac{\partial \,\delta^n f}{\partial y_{n+l-k}}= \sum\limits_{i=0}^n  C_n^i  \,\delta^i\left(\frac{\partial f}{\partial y_{i+l-k}}\right)$. Заметим, что так как $\ord f = l$, то для всех $i>k$ выполнено $\frac{\partial f}{\partial y_{i+l-k}}=0$. Отсюда следует, что 
+\begin{gather*}
+A_{\,\delta^n f,n+l-k}=\sum\limits_{i=0}^n  C_n^i  \,\delta^i\left(\frac{\partial f}{\partial y_{i+l-k}}\right)=\sum\limits_{i=0}^k  C_n^i  \,\delta^i \left(\frac{\partial f}{\partial y_{i+l-k}}\right)=\\
+=\sum\limits_{j=l-k}^l  C_n^{k-l+j}  \,\delta^{k-l+j}\left(\frac{\partial f}{\partial y_{j}}\right)=\sum\limits_{j=0}^{l}C_n^{k - l + j
+}\,\delta^{k-l+j}\left(\frac{\partial f}{\partial y_j}\right).
+\end{gather*}
+Последнее равенство верно, так как если $l>k$, то из $0 \le j<l-k \Longrightarrow C_n^{k-l+j}=0$, а если $l<k$, то  $k-l\le j<0 \Longrightarrow \frac{\partial f}{\partial y_{j}}=0$. 
+\end{proof}
+
+Пусть $f$~--- дифференциальный многочлен, $\ord f = l$, $n\in\mathbb{N}$, $0\le k\in\mathbb{Z}$ и $n>2k$.
+Введём более удобное обозначение
+\begin{gather*}
+ S_{f,n,k} := A_{\,\delta^n f, l+n-k} = \sum_{j=\max(l-k,0)}^l C_{n}^{k-l+j} \,\delta^{k-l+j}\left(\frac{\partial f}{\partial y_{j}}\right)
+\end{gather*}
+(по лемме~\ref{lemma:A_fn}).
+Коэффициенты $S_{f,n,k}$ будем называть \emph{обобщёнными сепарантами} многочлена $f$.
+В частности, при $k=0$ обобщённая сепаранта совпадает с обычной: $S_{f,n,0}=S_f = \frac{\partial f}{\partial y_l}$. 
+Заметим, что при указанных предположениях $\ord S_{f,n,k} \le k+l$.
+
+\begin{proposition}
+\label{generalized_separants_expansion}
+При $n > 2p$
+\begin{gather}
+\label{generalized_separant_formula}
+ \,\delta^n f = S_{f,n,0} \, y_{l+n} + S_{f,n,1} \, y_{l+n-1} + \ldots + S_{f,n,p} \, y_{l+n-p} + T_{f,n,p},
+\end{gather}
+где $\ord T_{f,n,p} < l+n-p$.
+\end{proposition}
+
+\begin{proof}
+Докажем утверждение индукцией по $p$.
+База выполнена: при $p = 0$ утверждение превращается в формулу~\eqref{separant_formula}.
+Предположим, что для некоторого $p$ утверждение доказано, и докажем его для $p + 1$, где $2(p+1) < n$.
+Заметим, что 
+$$
+ \ord S_{f,n,k} \le k + l \le p + l < l+n-p-1,
+$$
+поэтому переменная $y_{l+n-p-1}$ не встречается в слагаемых вида $S_{f,n,k} \, y_{l+n-k}$ формулы~\eqref{generalized_separant_formula}.
+Она может встретиться только в $T_{f,n,p}$, причём в этом случае она окажется старшей переменной $T_{f,n,p}$.
+Значит,
+$$
+ S_{f,n,p+1} = A_{\delta^n f, \, l+n-p-1} = A_{T_{f,n,p}, \, l+n-p-1},
+$$
+причем 
+$$
+ T_{f,n,p} = S_{f,n,p+1} \, y_{l+n-p-1} + T_{f,n,p+1},
+$$
+где $\ord T_{f,n,p+1} < l+n-p-1$.
+\end{proof}
+
+\bigskip
+
+
+\section{Алгоритм, проверяющий равенство~\eqref{strong_general}}
+\label{algorithm}
+
+Сформулируем сначала несколько утверждений об идеалах в произвольном коммутативном кольце.
+
+\begin{proposition}
+Если $S$~--- идеал, а $I$~--- радикальный идеал, то $I = I:S \cap (I+S)$. $\qed$
+\end{proposition}
+
+\begin{proposition}
+Если $I$~--- идеал, то $I : (g_1, \ldots, g_n) = \bigcap_{i=1}^n I:(g_i)$. $\qed$
+\end{proposition}
+
+\begin{proposition}
+\label{Primes}
+Если $Q_i$~--- идеалы, $P$~--- простой идеал и $\bigcap_{i=1}^n Q_i \subset P$, то для некоторого $j$ $Q_j \subset P$. $\qed$
+\end{proposition}
+
+
+\bigskip
+
+Пусть даны идеалы в кольце многочленов $\diffField[y_0, \ldots, y_s]$.
+Очевидно, что такие свойства идеалов, как тривиальность, простота, радикальность, включение
+не зависят от присоединения к кольцу дополнительных независимых переменных.
+Поэтому, говоря об идеалах, мы не будем уточнять, в кольцах многочленов от каких переменных они рассматриваются.
+
+
+\bigskip
+
+Перейдём теперь к формулировке задачи.
+Пусть $f \in \mathbb{Q}\{y\}$~--- дифференциальный многочлен порядка $l$,
+а $h_1, \ldots, h_t$~--- произвольные многочлены, образующие алгебраический идеал $J$.
+Для каждого натурального $d$ пусть $G_d$~--- идеал, порожденный элементами $\,\delta^{d-l+j} \left(\frac{\partial f}{\partial y_j}\right)$, где
+$$
+ \max(l-d, 0) \le j \le l.
+$$
+Отметим, что по определению $S_{f,n,d} \in G_d$.
+Предположим, что 
+$$
+ [f] + G_0 + \ldots + G_p = (1),
+$$
+где $p$~--- некоторое натуральное число.
+(Очевидно, что если выполнено~\eqref{nonsingular_general}, то такое $p$ найдётся.)
+Требуется выяснить, равен ли идеал $I = [f] + J$ единичному.
+Заметим, что разделение случаев~\eqref{strong} и~\eqref{nontrivial} является частным случаем этой задачи, когда $J = (S_f)$.
+
+\bigskip
+
+
+Обозначим через $S_p$ идеал $G_0 + \ldots + G_p$.
+Пусть $I_k = (f, \delta f, \ldots, \delta^k f) + J$. Заметим, что 
+$$
+ I = (1) \iff \exists \, k: I_k = (1) \iff \exists \, k: \sqrt{I_k} = (1).
+$$
+Выберем теперь $k$ таким, чтобы
+\begin{itemize}
+\item[---] $(f, \delta f, \ldots, \delta^k f) + S_p = (1)$;
+\item[---] $k \ge \ord h_i + p - l$ для всех многочленов $h_i$;
+\item[---] $k \ge 2p$.
+\end{itemize}
+Проверим, выполняется ли равенство $I_k = (1)$.
+
+Разложим идеал $\sqrt{I_k}$:
+$$
+ \sqrt{I_k} = \sqrt{I_k} : S_p  \cap  \left(\sqrt{I_k} + S_p\right).
+$$
+Так как $\sqrt{I_k} + S_p = (1)$, то
+$$
+ \sqrt{I_k} = \sqrt{I_k} : S_p = \sqrt{I_k} : (G_0 + \ldots + G_d) = \bigcap\limits_{d = 0}^p \sqrt{I_k} : G_d.
+$$
+Чтобы доказать, что этот идеал отличен от $(1)$, необходимо и достаточно доказать, что один из идеалов $\sqrt{I_k}:G_d$ отличен от $(1)$.
+Будем перебирать идеалы $\sqrt{I_k} : G_d$, увеличивая $d$.
+
+Если $\sqrt{I_k} : G_d = (1)$, то и $\sqrt{I_n} : G_d = (1)$ для всех остальных $n \ge k$.
+Будем считать, что $d$~--- наименьший номер, такой, что $\sqrt{I_k} : G_d \ne (1)$.
+Наша цель~--- постараться получить аналогичное неравенство для $k+1$.
+
+Идеал $\sqrt{I_k} : G_d$ является радикальным. Разложим его в минимальное пересечение простых идеалов $P_{k,d,i}$.
+Это в точности минимальные простые компоненты идеала $\sqrt{I_k}$, не содержащие $G_d$.
+Предположим, что имеет место {\bf случай 1}: среди этих простых идеалов существует идеал $P$, не содержащий ни одной обобщенной сепаранты $S_{f,n,d}$
+при $n \ge k$.
+Покажем, что тогда идеал $\sqrt{I_{k+1}}:G_d$ также является собственным, и среди его минимальных простых также есть идеал $Q$,
+не содержащей обобщенных сепарант. В таком случае по индукции мы получим, что $I \ne 1$.
+
+Действительно, так как $k+1 > 2p \ge 2d$, то к $\delta^{k+1} f$ применимо предложение~\ref{generalized_separants_expansion}:
+$$
+ \delta^{k+1} f = S_{f,k+1,0} y_{l+k+1} + \ldots + S_{f,k+1,d} y_{l+k+1-d} + T.
+$$
+Первые $d-1$ обобщенных сепарант принадлежат, соответственно, идеалам $G_0, \ldots, G_{d-1}$,
+которые, в свою очередь, содержатся в $\sqrt{I_k}$ и в $P$.
+Пусть $z = y_{l+k+1-d}$
+и $R$~--- подкольцо кольца многочленов, порожденное переменными, младшими $z$. 
+Можно написать
+$$
+ \delta^{k+1} f \equiv S_{f,k+1,d} z + T \pmod P,
+$$
+причем $\ord T < \ord z$, т. е. $T \in R$.
+Покажем, что в идеале $P$ можно выбрать систему образующих, порядок которых тоже меньше $z$.
+В самом деле, идеалы $J, G_0, \ldots, G_d$ таковы. Далее,
+\begin{gather*}
+ \delta^k f = S_{f,k,0} y_{l+k} + \ldots + S_{f,k,d-1} z + T_k,\\
+ \delta^{k-1} f = S_{f,k-1,0} y_{l+k-1} + \ldots + S_{f,k-1,d-2} z + T_{k-1},\\
+ \ldots\\
+ \delta^{k-d+1} f = S_{f,k-d+1,0} z + T_{k-d+1}.
+\end{gather*}
+Все участвующие в этих формулах обобщенные сепаранты лежат в идеале $S_{d-1} \subset \sqrt{I_k}$.
+Поэтому
+$$
+ \sqrt{I_k} = \sqrt{(f, \delta f, \ldots, \delta^{k-d} f, T_{k-d+1}, \ldots, T_k, h_1, \ldots, h_t) + S_{d-1}}.
+$$
+Поэтому в $\sqrt{I_k}$, а значит и в $\sqrt{I_k}:G_d$, и в $P$ можно выбрать систему образующих из $R$.
+
+Если $h \in I_{k+1} \cap R$~--- произвольный многочлен, то верно сравнение
+$h \equiv q \delta^{k+1} f \pmod P$, причем тогда $q S_{f,k+1,d} \in P$, так как $z \notin R$.
+Так как по предположению $S_{f,k+1,d} \notin P$ и $P$ является простым, то множитель $q \in P$,
+откуда $h \in P$. Итак,
+\begin{gather*}
+ I_{k+1} \cap R \subset P \; \Longrightarrow \; \sqrt{I_{k+1}} \cap R \subset \sqrt{P} = P \; \Longrightarrow \\
+ \Longrightarrow \; \sqrt{I_{k+1}}:G_d \cap R \subset P:G_d = P \; \Longrightarrow \; \sqrt{I_k}:G_d \subset \sqrt{I_{k+1}}:G_d \cap R \subset P.
+\end{gather*}
+Пусть $\sqrt{I_{k+1}}:G_d = \cap_j Q_j$~--- минимальное разложение на простые компоненты.
+Тогда все идеалы $Q_j \cap R$ тоже простые, причем
+$$
+ \sqrt{I_k}:G_d \subset \bigcap_j \left( Q_j \cap R \right) \subset P.
+$$
+Отсюда следует, что найдется $Q$, такой, что $Q \cap R = P$, так как $P$~--- минимальный простой.
+Так как все обобщенные сепаранты лежат в $R$ и не лежат в $P$, то они не лежат и в $Q$.
+
+\bigskip
+
+Предположим теперь, что имеет место {\bf случай 2}: для каждого минимального простого идеала $P_{k,d,i}$
+найдется принадлежащая ему обобщенная сепаранта $S_{f,n,d}$, где $n \ge k$.
+Заметим, что все обобщенные сепаранты лежат в идеале $G_d$.
+Выражение для этих обобщенных сепарант является многочленом по $n$ степени $d$,
+не равным тождественно нулю по модулю каждого идеала $P_{k,d,i}$ (иначе получилось бы противоречие $G_d \subset P_{k,d,i}$).
+Отсюда следует, что лишь для конечного набора значений $n \ge k$ обобщенная сепаранта $S_{f,n,d}$ может оказаться в идеале $P_{k,d,i}$.
+Пусть число $K$ больше всех этих значений. Перейдем от $k$ к $K$ и повторим процедуру. Покажем, что такой повтор может произойти не более $d+1$ раз. Действительно, пусть имеется цепочка наборов минимальных простых идеалов $P_{k_j, d, i}$ для идеалов $\sqrt{I_{k_j}}:G_d$ длины $d+1$
+$$
+ \bigcap_i P_{k_1, d, i} \subset \bigcap_i P_{k_2, d, i} \subset \ldots \subset \bigcap_i P_{k_{d+1}, d, i},
+$$
+причем в каждом из них содержится некоторая обобщенная сепаранта.
+Выберем по предложению~\ref{Primes} цепочку вложенных простых идеалов:
+$$
+ P_{k_1, d, i_1} \subset P_{k_2, d, i_2} \subset \ldots \subset P_{k_{d+1}, d, i_{d+1}}.
+$$
+Рассмотрим выражение для обобщенной сепаранты по модулю последнего идеала в этой цепочке. Это не тождественный ноль,
+а некоторый многочлен по $n$ степени не выше $d$, имеющий корень по крайней мере в $d+1$ точке, что немедленно приводит нас к противоречию.
+Итак, по крайней мере за $d$ таких повторов мы либо убедимся, что $\sqrt{I_k}:G_d = (1)$
+(и тогда надо будет перейти к следующему $d$),
+либо получим простую компоненту этого идеала, не содержащую никаких обобщенных сепарант, и тогда по доказанному выше $I \ne (1)$.
+
+\bigskip
+
+Проведенные рассуждения записаны ниже в виде алгоритма.
+Алгоритм был реализован авторами в системе компьютерной алгебры Sage.
+
+%\algrenewcommand\algorithmicwhile{\textbf{am\’\i g}}
+\begin{algorithm}
+\label{alg_pseudocode}
+\noindent {\bf Вход: }{многочлен $f \in \diffField\{y\}$ порядка $l$, такой, что $\left[f,\frac{\partial f}{\partial y_0},\ldots, \frac{\partial f}{\partial y_l}\right]=(1)$;\\
+\phantom{{\bf Вход:}} многочлены $h_1, \ldots, h_t \in \diffField\{y\}$}
+
+\noindent {\bf Выход:} \verb'True', если  $[f]+(h_1,\ldots,h_t)=(1)$, и \verb'False', если $[f]+(h_1,\ldots,h_t)\ne(1)$.
+\begin{algorithmic}[1]
+\Statex
+\State\label{find}{\bf{find}} $k$ {\bf and} $p$ {\bf such that} $(f, \ldots, \,\delta^k f) + G_0 + \ldots + G_p = (1)$, $k \ge 2p$, {\bf and} $k \ge \ord h_i + p - l$ % {\bf for all} $i$
+\State $I_k \gets (f, \ldots, \,\delta^k f, h_1, \ldots, h_t)$
+\State $d \gets 0$
+\While{$d \le p$}
+  \If{$G_d \subset \sqrt{I_k}$}\label{subset}
+    \State $d \gets d + 1$
+    \State {\bf continue}
+  \EndIf
+  \State\label{primes} $primes \gets$ \Call{MinimalPrimeDecomposition}{$\sqrt{I_k}:G_d$}
+  \State $S_{f,n,d}(n) \gets \sum_{j=\max(l-d,0)}^l C_{n}^{d-l+j} \,\delta^{d-l+j}\left(\frac{\partial f}{\partial y_{j}}\right)$
+  \State $K \gets k$
+  \ForAll{$P \in primes$}
+    \State\label{remainder} $r(n) \gets$ \Call{Reduce}{$S_{f,n,d}(n), P$}
+    \State $n_{\max} \gets$ \Call{MaxIntegerRoot}{$r(n)$}
+    \If{$n_{\max} < k$}
+      \State\label{return_false} \Return{\verb'False'}
+    \EndIf
+    \State $K \gets \max(K, n_{\max})$
+  \EndFor
+  \State $k \gets K + 1$
+  \State $I_k \gets (f, \ldots, \,\delta^k f, h_1, \ldots, h_t)$
+\EndWhile
+\State \Return{\verb'True'}
+\end{algorithmic}
+\end{algorithm}
+
+Функция {\textsc{MinimalPrimeDecomposition}} строит минимальное разложение радикального идеала на простые компоненты.
+Функция {\textsc{Reduce}} редуцирует указанный многочлен относительно базиса Грёбнера указанного идеала
+при каком-либо фиксированном упорядочении.
+Функция {\textsc{MaxIntegerRoot}} возвращает максимальный целый корень многочлена по переменной $n$,
+либо $-\infty$, если целых корней не существует.
+Для этого вычисляется наибольший общий делитель (как многочлен от $n$) всех коэффициентов перед остальными переменными $y_0, \ldots, y_s, \ldots$.
+
+\bigskip
+
+\section{Примеры}
+В приводимых ниже выкладках можно убедиться с помощью любой системы компьютерной алгебры, позволяющей вычислять базисы Грёбнера.
+
+\label{examples}
+\begin{example}\label{example:first}
+Рассмотрим дифференциальный многочлен 
+$$
+f= y_0 y_1^2+ay_1^2+by_0 y_1+c,
+$$
+где $c \ne 0$.
+Выясним, при каких константных значениях параметров $a$, $b$ и $c$ выполнено $[f]+(S_f)=(1)$.
+Хотя наш алгоритм не предполагает наличия параметров, мы решим эту задачу в общем виде.
+
+Можно проверить, что $[f] + [S_f] = (1)$.
+В самом деле, $c^2$ полиномиально выражается через систему $f, \delta f, \delta^2 f, S_f, \delta {S_f}$.
+Поэтому на шаге~\ref{find} можно выбрать $p = 1$ и $k=2$.
+Соответствующие идеалы $G_d$ и $I_k$ выглядят так:
+\begin{gather*}
+G_0 = (S_f),\\
+G_1 = \left(\delta {S_f}, \frac{\partial f}{y_0} \right),\\
+I_2 = \left(f, \delta f, \delta^2 f, S_f\right).
+\end{gather*}
+Они рассматриваются в кольце $\mathbb{Q}[y_0, y_1, y_2, y_3]$ (при фиксированных значениях параметров).
+Заметим, что $G_0 \subset I_2$, поэтому на шаге~\ref{subset} для $d=0$ включение будет выполнено и алгоритм перейдет к $d=1$.
+Построим идеал $\sqrt{I_2}:G_1$.
+Рассматривая его в $\mathbb{Q}[a,b,c,y_0,y_1, y_2, y_3]$ и исключая переменные $y_j$, получим многочлен $c + a b^2$.
+Итак, если $c + ab^2 \ne 0$, то $\sqrt{I_2}:G_1 = (1)$, то есть, включение на шаге~\ref{subset} снова выполнено,
+цикл закончится и алгоритм вернет \verb'True'. В этом случае $[f] + (S_f) = (1)$.
+
+Пусть теперь $c + a b^2 = 0$.
+В этом случае алгоритм должен на шаге~\ref{primes} построить разложение идеала $\sqrt{I_2}:G_1$
+на минимальные простые компоненты. 
+Выполним эту операцию в кольце $\mathbb{Q}[a,b,c,y_0,y_1,y_2,y_3]$.
+В результате мы получим разложение идеала $\sqrt{I_2}:G_1$ на две компоненты,
+которые, однако, могут утратить свойство простоты при подстановке вместо параметров $a, b$ и $c$ конкретных значений.
+Тем не менее, уже в этом случае остатки $r(n)$ для каждой из компонент на шаге~\ref{remainder} дают многочлены,
+пропорциональные $b^2 n$, причем по предположению $b^2 \ne 0$, так как $c \ne 0$.
+Единственный целый корень $0$ этих многочленов меньше текущего значения $k = 2$,
+поэтому алгоритм на шаге~\ref{return_false} вернет \verb'False', то есть,
+при $c + a b^2 = 0$ идеал $[f] + (S_f)$ отличен от всего кольца.
+\end{example}
+
+
+\begin{example}
+Рассмотрим многочлен $f = (y_1-a)^2 - b^2 y_0^4 y_1^2$,
+где коэффициенты $a$ и $b$ отличны от нуля.
+Заметим, что $ab$
+полиномиально выражается через $f, \ldots, \,\delta^4 f, S_f, \,\delta {S_f}, \,\delta^2 {S_f}$.
+Значит, при любых ненулевых $a$ и $b$ идеал $[f] + [S_f]$ тривиален.
+Здесь нам потребовалось дважды продифференцировать сепаранту $S_f$.
+Выясним, возможна ли ситуация $[f] + (S_f, \delta {S_f}) = (1)$.
+
+На шаге~\ref{find} можно выбрать $p = 2$ и $k=4$.
+Тогда
+$$
+ I_4 = (f, \ldots, \,\delta^4 f, S_f, \,\delta {S_f}).
+$$
+Заметим, что при $d=0$ и $d=1$ идеалы $\sqrt{I_4}:G_d$ оказываются тривиальными.
+Переходим к последней итерации внешнего цикла алгоритма при $d=2$.
+В кольце $\mathbb{Q}[a,b,y_0,y_1,y_2,y_3]$
+идеал $\sqrt{I_4}:G_2$ раскладывается в пересечение двух простых компонент, которые порождаются элементами
+$$
+ y_0, \, y_1 - a, \, y_2, \, y_3 - 2 a^3 b
+$$
+и
+$$
+ y_0, \, y_1 - a, \, y_2, \, y_3 + 2 a^3 b.
+$$
+Видно, что при конкретных значениях параметров $a$ и $b$
+эти идеалы остаются простыми в кольце $\mathbb{Q}[y_0, y_1, y_2, y_3]$.
+Остаток от редукции многочлена $S_{f,n,2}(n)$
+относительно первого из них равен $2a^3 b n(n-1)$.
+Целые корни этого многочлена, $0$ и $1$, меньше текущего значения $k=4$,
+поэтому алгоритм вернет \verb'False' в строке~\ref{return_false}.
+Итак, при всех ненулевых $a$ и $b$ идеал $[f] + (S_f, \delta {S_f})$ отличен от единичного.
+\end{example}
+
+\begin{thebibliography}{99}
+
+\bibitem{AM}
+М. Атья, И. Макдональд.
+\emph{Введение в коммутативную алгебру.} М., <<Мир>>, 1972.
+
+\bibitem{Cox}
+Д. Кокс, Д. Литтл, Д. О'Ши.
+\emph{Идеалы, многообразия и алгоритмы}.
+М., <<Мир>>, 2000.
+
+\bibitem{Trushin}
+Д. В. Трушин.
+\emph{Идеал сепарант в кольце дифференциальных многочленов}.
+Фундаментальная и прикладная математика, том~13, вып.~1, 215--227, 2007.
+
+\bibitem{BLOP}
+F. Boulier, D. Lazard, F. Ollivier, M. Petitot.
+\emph{Representation for the Radical of a Finitely Generated Differential Ideal}.
+In Proceedings of 1995 International Symposium on Symbolic and Algebraic Computation (ISSAC-1995), ACM Press, 158--166, 1995.
+ 
+\bibitem{CarraFerro}
+G. Carr\`a Ferro.
+\emph{Diferential Gr\"{o}bner Bases in One Variable and in the Partial Case}.
+Math. Comput. Modelling, Pergamon Press, vol.~25, 1--10, 1997.
+
+\bibitem{Kolchin41}
+E. R. Kolchin.
+\emph{On the Exponents of Differential Ideals}.
+The Annals of Mathematics, Second Series, vol.~42 (3), 740--777, 1941.
+
+\bibitem{Kolchin73}
+E. R. Kolchin.
+\emph{Differential algebra and algebraic groups}.
+Academic Press, 1973.
+
+\bibitem{Sit}
+W. Sit.
+\emph{The Ritt-Kolchin Theory for Differential Polynomials}.
+Differential Algebra and Related Topics, 2000.
+
+\bibitem{Zobnin} 
+A. Zobnin. 
+\emph{Admissible Orderings and Finiteness Criteria for Differential Standard Bases}. 
+In Proceedings of International Symposium on Symbolic and Algebraic Computation (ISSAC-2005), ACM Press,
+365--372 (2005).
+\end{thebibliography}
+\end{document}
+\begin{definition}
+\end{definition}
