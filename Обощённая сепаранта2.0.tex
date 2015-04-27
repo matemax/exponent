@@ -56,7 +56,7 @@ Differential polynomial, separant, generalized  separant, quasilinear polynomial
 
 
 \begin{definition}
-Пусть  $\mathcal{R}$~--- коммутативное кольцо с единицей, тогда отображение $\delta: \mathcal{R} \to \mathcal{R}$ называется \emph{дифференцированием}, если для любых элементов $a$ и $b$ кольца $\mathcal{R}$
+Пусть  $\mathcal{R}$~--- коммутативное кольцо с единицей. Тогда отображение $\delta: \mathcal{R} \to \mathcal{R}$ называется \emph{дифференцированием}, если для любых элементов $a$ и $b$ кольца $\mathcal{R}$
 выполнены следующие свойства:
 \begin{enumerate}
   \item $\delta(a+b)= \delta(a)+\delta(b)$~--- линейность;
@@ -66,14 +66,14 @@ Differential polynomial, separant, generalized  separant, quasilinear polynomial
 
 
 
-Пусть дано некоторое ассоциативное коммутативное кольцо
+Пусть дано некоторое ассоциативное коммутативное кольцо	
 $\mathcal{R}$ с единицей. Оно называется  {\it дифференциальным
 кольцом}, если на н\"ем задан набор дифференцирований, коммутирующих между собой.
 
 { \it Элементарный
 дифференциальный оператор} может быть записан однозначно в виде
-$\theta=\delta_1^{j_1}\ldots\delta_k^{j_k}$. Порядком такого
-оператора называется $\ord\,\theta:=\Sigma_{i=1}^kj_i$. Множество
+$\theta=\delta_1^{j_1}\ldots\delta_m^{j_m}$. Порядком такого
+оператора называется $\ord\,\theta:=\Sigma_{i=1}^mj_i$. Множество
 элементарных дифференциальных операторов образуют моноид $\Theta$.
 {Идеал $I\subseteq{\mathcal{R}}$
 называется {\it дифференциальным идеалом}, если $\Theta I\subseteq{ I}$.}
@@ -81,7 +81,7 @@ $\theta=\delta_1^{j_1}\ldots\delta_k^{j_k}$. Порядком такого
 Напомним понятие кольца дифференциальных многочленов. Рассмотрим поле $\mathcal{K}$  и  $V=\{v_1,\ldots,v_n\}$~--- набор
 независимых дифференциальных переменных. Тогда кольцо дифференциальных многочленов~--- это всевозможные конечные
 суммы слагаемых вида $a(\theta_1v_{j_1})^{i_1}(\theta_2v_{j_2})^{i_2}\ldots(\theta_rv_{j_r})^{i_r}$, $i_k$~--- неотрицательные  целые числа, где
-$\theta_j\in\Theta,a\in\mathcal{K}$. Это кольцо многочленов от
+$\theta_k\in\Theta,a\in\mathcal{K}$. Это кольцо многочленов от
 бесконечного числа переменных вида ${\theta}v_i$ над полем
 $\mathcal{K}$. Осталось определить дифференцирование такого
 многочлена. В силу линейности и правила Лейбница достаточно
@@ -92,21 +92,21 @@ $\delta_i({\theta}v_j)=(\delta_i\theta)v_j$. Кольцо дифференциальных многочленов
 Порядком переменной $\ord {\theta}v_i$ назовем $\ord {\theta}$. Порядком многочлена назовем максимальный порядок переменной,  входящей в него.
 \end{definition}
 
-Рассмотрим поле $K$ характеристики 0, набор независимых дифференциальных переменных $v_1,\ldots,v_n$ и набор дифференцирований $\delta_1,\ldots, \delta_k$. Тогда  кольцо дифференциальных многочленов $K\{v_1,\ldots,v_n\}$.  Рассмотрим многочлен $f\in K\{v_1,\ldots,v_n\}$,  для любой переменной ${\theta}v_i$ наш многочлен можно представить в виде $g= A_{{\theta}v_i}{\theta}v_i+g_0$, где многочлен $g_0$ не зависит от ${\theta}v_i$. По данному многочлену $f$  и дифференциальному оператору $\Delta=\delta_1^{i_1}\ldots\delta_k^{i_k}$ нужно определить явно, чему равен <<коэффициент>>  $A_{{\theta}v_i}$  у многочлена $\Delta(f)$. 
+Рассмотрим поле $K$ характеристики 0, набор независимых дифференциальных переменных $v_1,\ldots,v_n$ и набор дифференцирований $\delta_1,\ldots, \delta_m$. Тогда  кольцо дифференциальных многочленов $K\{v_1,\ldots,v_n\}$.  Рассмотрим многочлен $f\in K\{v_1,\ldots,v_n\}$,  для любой переменной ${\theta}v_i$ наш многочлен можно представить в виде $g= A_{{\theta}v_i}{\theta}v_i+g_0$, где многочлен $g_0$ не зависит от ${\theta}v_i$. По данному многочлену $f$  и дифференциальному оператору $\Delta=\delta_1^{i_1}\ldots\delta_m^{i_m}$ нужно определить явно, чему равен <<коэффициент>>  $A_{{\theta}v_i}$  у многочлена $\Delta(f)$. 
 
-Заметим, что так как дифференциальные операторы линейны, то нам достаточно решать данную задачу для  случая, когда $f$ является мономом. Введем мультииндексы для более компактной записи: $v_{j,(i_1,\ldots,i_k)} :=\delta_1^{i_1}\ldots\delta_k^{i_k}(v_j)$, тогда $\delta_1^{a_1}\ldots\delta_k^{a_k}(v_{j,(b_1,\ldots,b_k)})=v_{j,(a_1+b_1,\ldots,a_k+b_k)}$. Теперь наша задача переписывается в следующем виде: нам дан моном $f=v_{j_{1},(i_{1,1},\ldots,i_{k,1})}^{m_1}\ldots v_{j_r,(i_{1,r},\ldots,i_{k,r})}^{m_r}$, к нему применяется оператор $\Delta=\delta_1^{i_1}\ldots\delta_k^{i_k}$  и нам требуется найти <<коэффициент>> при $ v_{j,(j_1,\ldots,j_k)}= v$.
+Заметим, что дифференциальные операторы линейны. Следовательно, нам достаточно решать данную задачу для  случая, когда $f$ является мономом. Введем мультииндексы для более компактной записи: $v_{j,(i_1,\ldots,i_m)} :=\delta_1^{i_1}\ldots\delta_m^{i_m}(v_j)$. Тогда $\delta_1^{a_1}\ldots\delta_m^{a_m}(v_{j,(b_1,\ldots,b_m)})=v_{j,(a_1+b_1,\ldots,a_m+b_m)}$. Теперь наша задача переписывается в следующем виде: нам дан моном $f=v_{j_{1},(i_{1,1},\ldots,i_{m,1})}^{k_1}\ldots v_{j_r,(i_{1,r},\ldots,i_{m,r})}^{k_r}$, к нему применяется оператор $\Delta=\delta_1^{i_1}\ldots\delta_m^{i_m}$  и нам требуется найти <<коэффициент>> при $ v_{j,(j_1,\ldots,j_m)}= v$.
 
 
 \begin{lemma}\label{lemma:der_monom_general}
-Пусть моном $M$ записан в  виде $M=v_{j_{1},(i_{1,1},\ldots,i_{k,1})}\ldots v_{j_r,(i_{1,r},\ldots,i_{k,r})}$ (переменные могут повторяться). Тогда 
+Пусть моном $g$ записан в  виде $g=v_{j_{1},(i_{1,1},\ldots,i_{m,1})}\ldots v_{j_r,(i_{1,r},\ldots,i_{m,r})}$ (переменные могут повторяться). Тогда 
 $$
-\delta_1^{i}(M)=\sum\limits_{\stackrel{s_{j}\ge0,}{
-s_{1}+\ldots+s_{r}=i}}\frac{i!}{s_{1}!\ldots s_{r}!}\prod\limits_{m=1}^rv_{j_m,(i_{1,m}+s_m,i_{2,m},\ldots,i_{k,m})}
+\delta_1^{i}(g)=\sum\limits_{\stackrel{s_{j}\ge0,}{
+s_{1}+\ldots+s_{r}=i}}\frac{i!}{s_{1}!\ldots s_{r}!}\prod\limits_{k=1}^rv_{j_k,(i_{1,k}+s_k,i_{2,k},\ldots,i_{m,k})}
 $$
 и
 $$
-\delta_1^{i_1}\ldots\delta_k^{i_k}(M)=\sum\limits_{\stackrel{s_{j,i}\ge0,}{
-s_{j,1}+\ldots+s_{j,r}=i_j~\forall j:1\leqslant j\leqslant k}}\frac{i_1!}{s_{1,1}!\ldots s_{1,r}!}\ldots\frac{i_k!}{s_{k,1}!\ldots s_{k,r}!}\prod\limits_{m=1}^rv_{j_m,(i_{1,m}+s_{1,m},\ldots,i_{k,m}+s_{k,m})}
+\delta_1^{i_1}\ldots\delta_m^{i_m}(g)=\sum\limits_{\stackrel{s_{j,i}\ge0,}{
+s_{j,1}+\ldots+s_{j,r}=i_j~\forall j:1\leqslant j\leqslant m}}\frac{i_1!}{s_{1,1}!\ldots s_{1,r}!}\ldots\frac{i_m!}{s_{m,1}!\ldots s_{m,r}!}\prod\limits_{k=1}^rv_{j_k,(i_{1,k}+s_{1,k},\ldots,i_{m,k}+s_{m,k})}.
 $$
 \end{lemma}
 \begin{proof}
@@ -114,20 +114,20 @@ $$
 \end{proof}
 
 \begin{lemma}
-Пусть $\ord \Delta = n$, $\ord f = l$, $\ord  v_{j,(j_1,\ldots,j_k)} = \ord v= p$ и выполнено условие $2p>n+2l$. Тогда $A_{v}$ не зависит от $v$.
+Пусть $\ord \Delta = n$, $\ord f = l$, $\ord  v_{j,(j_1,\ldots,j_m)} = \ord v= p$ и выполнено условие $2p>n+2l$. Тогда $A_{v}$ не зависит от $v$.
 \end{lemma}
 
 \begin{proof}
-Предположим, что это не так. Тогда после дифференцирования в каком-то мономе $\Delta(f)$ переменная $v$ встречается не меньше, чем во 2-й степени. Воспользуемся формулой из леммы~\ref{lemma:der_monom_general}.  Пусть $ v_{j_m,(i_{1,m}+s_{1,m},\ldots,i_{k,m}+s_{r,m})} = v$ и $ v_{j_t,(i_{1,t}+s_{1,t},\ldots,i_{k,t}+s_{r,t})} = v$. Тогда получаем 
+Предположим, что это не так. Тогда после дифференцирования в каком-то мономе $\Delta(f)$ переменная $v$ встречается не меньше, чем во 2-й степени. Воспользуемся формулой из леммы~\ref{lemma:der_monom_general}.  Пусть $ v_{j_k,(i_{1,k}+s_{1,k},\ldots,i_{m,k}+s_{r,k})} = v$ и $ v_{j_t,(i_{1,t}+s_{1,t},\ldots,i_{m,t}+s_{r,t})} = v$. Тогда получаем 
 \begin{gather*}
-\ord v_{j_m,(i_{1,m}+s_{1,m},\ldots,i_{k,m}+s_{r,m})} = i_{1,m}+s_{1,m}+\ldots+i_{k,m}+s_{r,m}= \sum\limits_{j = 1}^k i_{j,m}+\sum\limits_{j = 1}^k s_{j,m}\leqslant l+\sum\limits_{j = 1}^k s_{j,m},
+\ord v_{j_k,(i_{1,k}+s_{1,k},\ldots,i_{m,k}+s_{r,k})} = i_{1,k}+s_{1,k}+\ldots+i_{m,k}+s_{r,k}= \sum\limits_{j = 1}^m i_{j,k}+\sum\limits_{j = 1}^m s_{j,k}\leqslant l+\sum\limits_{j = 1}^m s_{j,k},
 \\
-\ord v_{j_t,(i_{1,t}+s_{1,t},\ldots,i_{k,t}+s_{r,t})} = i_{1,t}+s_{1,t}+\ldots+i_{k,t}+s_{k,t}= \sum\limits_{j = 1}^k i_{j,t}+\sum\limits_{j = 1}^k s_{j,t}\leqslant l+\sum\limits_{j = 1}^k s_{j,t}.
+\ord v_{j_t,(i_{1,t}+s_{1,t},\ldots,i_{m,t}+s_{r,t})} = i_{1,t}+s_{1,t}+\ldots+i_{m,t}+s_{m,t}= \sum\limits_{j = 1}^m i_{j,t}+\sum\limits_{j = 1}^m s_{j,t}\leqslant l+\sum\limits_{j = 1}^m s_{j,t}.
 \end{gather*}
 
-Но тогда мы приходим к противоречию с тем, что
+Но тогда  приходим к противоречию с тем, что
 $$
-2p=\ord v_{j_m,(i_{1,m}+s_{1,m},\ldots,i_{k,m}+s_{r,m})}+\ord v_{j_t,(i_{1,t}+s_{1,t},\ldots,i_{k,t}+s_{r,t})}\leqslant 2l + \sum\limits_{j = 1}^k (s_{j,m}+ s_{j,t})\leqslant  2l+n.
+2p=\ord v_{j_k,(i_{1,k}+s_{1,k},\ldots,i_{m,k}+s_{r,k})}+\ord v_{j_t,(i_{1,t}+s_{1,t},\ldots,i_{m,t}+s_{r,t})}\leqslant 2l + \sum\limits_{j = 1}^m (s_{j,k}+ s_{j,t})\leqslant  2l+n.
 $$
 
 \end{proof}
@@ -136,20 +136,20 @@ $$
 Следующая лемма была доказана нами для случая одного дифференцирования и одной дифференциальной переменной в статье~\cite{Zobnin and Limonov}. В связи с громоздкостью обозначений и выкладок мы привед\"eм только е\"е формулировку. Само доказательство можно получить из группировки слагаемых в лемме~\ref{lemma:der_monom_general} или проделав аналогичные шаги, как в доказательстве леммы 4 из~\cite{Zobnin and Limonov}.
 
 \begin{lemma}\label{lemma:general_separant}
-Пусть $K\{v_1,\ldots,v_n\}$~--- кольцо дифференциальных многочленов с $n$ независимыми  переменными и $k$ дифференцированиями. Рассмотрим многочлен $f\in K\{v_1,\ldots,v_n\}$, $\ord f = l$, дифференциальный оператор $\Delta =\delta_1^{i_1}\ldots\delta_k^{i_k}, \ord \Delta = n$, и переменную  $ v = v_{j,(j_1,\ldots,j_k)},\ord v = p$, тогда, если $2p>n+2l$, то многочлен $\Delta(f)$ можно представить в виде $\Delta(f) = A_{{\theta}v}({\theta}v)+g_0$, где $g_0$ не зависит от $v$, и
+Пусть $m\{v_1,\ldots,v_n\}$~--- кольцо дифференциальных многочленов с $n$ независимыми  переменными и $m$ дифференцированиями. Рассмотрим многочлен $f\in K\{v_1,\ldots,v_n\}$, $\ord f = l$, дифференциальный оператор $\Delta =\delta_1^{i_1}\ldots\delta_m^{i_m}, \ord \Delta = n$, и переменную  $ v = v_{j,(j_1,\ldots,j_m)},\ord v = p$. Тогда, если $2p>n+2l$, то многочлен $\Delta(f)$ можно представить в виде $\Delta(f) = A_{{\theta}v}({\theta}v)+g_0$, где $g_0$ не зависит от $v$, и
 $$
-  A_{{\theta}v} = \sum\limits_{ v_{j,(i_{1,j},\ldots,i_{k,j})}} 
- C_{i_1}^{j_1-i_{1,j}}\cdot C_{i_2}^{j_2-i_{2,j}}\cdot\ldots\cdot C_{i_k}^{j_k-i_{k,j}}
- \delta_1^{i_1-(j_1-i_{1,j})}\ldots\delta_k^{i_k-(j_k-i_{k,j})}
- \left(\dfrac{ \partial f}{ \partial v_{j,(i_{1,j},\ldots,i_{k,j})}}\right).
+  A_{{\theta}v} = \sum\limits_{ v_{j,(i_{1,j},\ldots,i_{m,j})}} 
+ C_{i_1}^{j_1-i_{1,j}}\cdot C_{i_2}^{j_2-i_{2,j}}\cdot\ldots\cdot C_{i_m}^{j_m-i_{m,j}}
+ \delta_1^{i_1-(j_1-i_{1,j})}\ldots\delta_m^{i_m-(j_m-i_{m,j})}
+ \left(\dfrac{ \partial f}{ \partial v_{j,(i_{1,j},\ldots,i_{m,j})}}\right).
 $$
 
 \end{lemma}
 
-{\it Замечание.} Сумма вед\"eтся по всем возможным переменным, которые  входят в $f$. Мы считаем, что если $k>n$, то $C_n^k=0$.
+{\it Замечание.} Сумма вед\"eтся по всем возможным переменным, которые  входят в $f$. Предполагается, что если $k>n$, то $C_n^k=0$.
 
 
-Посмотрим, что нам да\"ет эта формула для случая одной дифференциальной переменной $v_1$ и одного дифференцирования $\delta$. Пусть  $v= v_{1,i}$ Выражение из леммы~\ref{lemma:general_separant} преобразуется в следующий вид:
+Посмотрим, что нам да\"ет эта формула для случая одной дифференциальной переменной $v_1$ и одного дифференцирования $\delta$. Пусть  $v= v_{1,i}$. Выражение из леммы~\ref{lemma:general_separant} преобразуется в следующий вид:
 
 $$
  \delta^n(f) = A_{{\theta}v}({\theta}v)+g_0, 
@@ -173,7 +173,7 @@ $$
 с дифференцированием $\delta$, таким, что $\delta(y_i)=y_{i+1}$ и $\delta$, ограниченное на ${K}$, совпадает с дифференцированием поля $K$. Дифференцирование $\delta$, заданное таким способом, однозначно продолжается на $K\{y\}$ по линейности и правилу Лейбница.
 \end{definition}
 
-Далее мы будем считать, что поле ${K}$, над которым рассматриваются многочлены, является алгеброй Ритта с тождественно нулевым дифференцированием. Для удобства мы будем обозначать $n$-ю производную многочлена $f$ как $\delta^n(f)=f^{(n)}$. Также нам потребуется понятие порядка многочлена и сепаранты.
+Далее мы будем считать, что поле ${K}$, над которым рассматриваются многочлены, является алгеброй Ритта с тождественно нулевым дифференцированием. Для удобства будем обозначать $n$-ю производную многочлена $f$ как $\delta^n(f)=f^{(n)}$. Также нам потребуется понятие порядка многочлена и сепаранты.
 
 
 Пусть $M = \prod\limits_{i=0}^ny_i^{a_i}$, где $a_i \ge 0$, причем $a_n > 0$. Тогда, согласно определению порядка диффернциального мономв, $n$  является порядком $M$. 
@@ -261,7 +261,7 @@ $
 \begin{proof}
 Пусть $g\in [f]$~--- квазилинейный многочлен порядка $m$.
 Его можно записать в виде $g=\sum\limits_{i=0}^ng_if^{(i)}=g_0+y_m$, где $g_0$ не зависит от переменных порядка выше, чем $m-1$.
-Предположим, что $n<2m-2l$. Тогда будет выполнено, что $2k=2(n+l-m)<n$.
+Предположим, что $n<2m-2l$. Тогда будет выполнено, что $2k=2(n+l-m)<n$, где $k=n+l-m$.
 По следствию~\ref{corollary:deriv_equal} и определению обобщ\"енных сепарант мы можем для любого $m-l\leqslant p\leqslant n$  каждый многочлен $f^{(p)}$ представить в виде 
 $
 f^{(p)}=\sum\limits_{i=0}^{k} S_{f,p,i} \, y_{p+l -i}+ Q,
@@ -298,9 +298,9 @@ $$
 \begin{proof}
 Доказательство будем вести индукцией по степени многочлена $f$. База: $\deg f = 0$, тогда $f = a$, $[f]=[a]=(1)$, $(1)\not \subseteq I$.
 
-Предположим, что для всех многочленов степени не выше $k-1$ мы доказали, докажем для степени $k$. Пусть $\deg f = k, \ord f = l$ и  предположим, что $[f] \subseteq I$.  Пусть $n_0=\max\limits_{i}(\ord g_i)$, рассмотрим $n$ сильно большее $n_0$ (например, $n>2 n_0$). Тогда по лемме~\ref{corollary:deriv_equal} мы можем представить $f^{(n)}=\sum\limits_{i=0}^{k} S_{f,n,i} \, y_{n+l -i}+ Q$, где $2k<n\in\mathbb{N}\,,\ord Q < n+l-k$. Тогда, так как $f^{(n)}\in I$ и $\ord  y_{n+l -i}>n_0$ , то каждое $S_{f,n,i}\in I$. Заметим, что $S_{f,n,i}=\sum\limits_{j=0}^{l}C_n^{i - l + j}\left(\frac{\partial f}{\partial y_j}\right)^{(i - l + j)}$. 
+Предположим, что для всех многочленов степени не выше $k-1$ мы доказали, докажем для степени $k$. Пусть $\deg f = k, \ord f = l$ и  предположим, что $[f] \subseteq I$.  Пусть $n_0=\max\limits_{i}(\ord g_i)$, рассмотрим $n$ сильно большее $n_0$ (например, $n>2 n_0$). Тогда по лемме~\ref{corollary:deriv_equal}  можем записать $f^{(n)}=\sum\limits_{i=0}^{k} S_{f,n,i} \, y_{n+l -i}+ Q$, где $2k<n\in\mathbb{N}\,,\ord Q < n+l-k$. Тогда, так как $f^{(n)}\in I$ и $\ord  y_{n+l -i}>n_0$ , то каждое $S_{f,n,i}\in I$. Заметим, что $S_{f,n,i}=\sum\limits_{j=0}^{l}C_n^{i - l + j}\left(\frac{\partial f}{\partial y_j}\right)^{(i - l + j)}$. 
 
-Рассмотрим  векторное подпространство пространства $K\{y\}$, натянутое на  вектора $\{\left(\frac{\partial f}{\partial y_j}\right)^{(i - l )},\ldots, $ $\left(\frac{\partial f}{\partial y_j}\right)^{(i - l + l)}\}$. Рассмотрим в н\"ем вектора вида  $\sum\limits_{j=0}^{l}C_n^{i - l + j}\left(\frac{\partial f}{\partial y_j}\right)^{(i - l + j)}$.  Из линейной независимости $C_n^{i - l + j}$ как многочленов от $n$ следует, что если у нас будет  достаточно большое количество векторов, то через них можно выразить любой порождающий элемент.
+Рассмотрим подпространство пространства $K\{y\}$, натянутое на  векторы $\left\{\left(\frac{\partial f}{\partial y_j}\right)^{(i - l )},\ldots, \left(\frac{\partial f}{\partial y_j}\right)^{(i - l + l)}\right\}$. Рассмотрим в н\"ем векторы вида  $\sum\limits_{j=0}^{l}C_n^{i - l + j}\left(\frac{\partial f}{\partial y_j}\right)^{(i - l + j)}$.  Из линейной независимости $C_n^{i - l + j}$ как многочленов от $n$ следует, что если у нас будет  достаточно большое количество векторов, то через них можно выразить любой порождающий элемент.
 
 Следовательно, так как для любого достаточно большого  $n$ обобщенная сепаранта лежит в $I$, то каждое слагаемое  в сумме $\sum\limits_{j=0}^{l}C_n^{i - l + j}\left(\frac{\partial f}{\partial y_j}\right)^{(i - l + j)}$ принадлежит  $I$, т.е.  для любого  $i\geqslant 0$ нашему идеалу $I$ принадлежит $\left(\frac{\partial f}{\partial y_l}\right)^{(i - l + l)}=(S_f)^{(i)}$, что невозможно по предположению индукции, так как $\deg S_f< \deg f$. Переход доказан.
 \end{proof}
@@ -331,17 +331,17 @@ $$
 \bibitem{KolchinBook}
  E. R. Kolchin.
  \emph{Differential Algebra and Algebraic Groups.}
- Academic Press, New York, 1973 г.
+ Academic Press, New York, 1973
 
 \bibitem{E. R. Kolchin}
 E. R. Kolchin.
 \emph{On the Exponents of Differential Ideals.}
-The Annals of Mathematics, 1941 г., Second Series, Volume 42, Issue 3, 740--777. 
+The Annals of Mathematics, 1941, Second Series, Volume 42, Issue 3, 740--777. 
  
 \bibitem{Trushin}
 Д. В. Трушин.
 \emph{Идеал сепарант в кольце дифференциальных многочленов.}
-Фундаментальная и прикладная математика, 2007 г., том~13, вып.~1, 215--227.
+Фундаментальная и прикладная математика, 2007, том~13, вып.~1, 215--227.
 
 \bibitem{Zobnin} 
  A. Zobnin. 
@@ -351,7 +351,7 @@ The Annals of Mathematics, 1941 г., Second Series, Volume 42, Issue 3, 740--777.
 
 \bibitem{Zobnin and Limonov} 
 A. Zobnin, M. Limonov.
- \emph{Algorithm for Checking Triviality of <<Mixed>>. Ideals in the Ring of Differential Polynomials }
+ \emph{Algorithm for Checking Triviality of <<Mixed>> Ideals in the Ring of Differential Polynomials. }
  Programming and Computer Software, March 2015, Volume 41, Issue 2, pp 84-89.
 
 \end{thebibliography}
